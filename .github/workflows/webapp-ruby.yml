@@ -4,12 +4,18 @@ on:
   push:
     branches:
       - master
+    paths:
+      - ".github/workflows/webapp-ruby.yml"
+      - "webapp/ruby/**"
 
   pull_request:
     types:
       - opened
       - synchronize
       - reopened
+    paths:
+      - ".github/workflows/webapp-ruby.yml"
+      - "webapp/ruby/**"
 
 defaults:
   run:
