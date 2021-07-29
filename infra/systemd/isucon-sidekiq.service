@@ -1,3 +1,5 @@
+# Copy to /lib/systemd/system/isucon-sidekiq.service
+
 #
 # This file tells systemd how to run Sidekiq as a 24/7 long-running daemon.
 #
