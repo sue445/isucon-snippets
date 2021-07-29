@@ -11,6 +11,10 @@ on:
       - synchronize
       - reopened
 
+defaults:
+  run:
+    working-directory: webapp/ruby/
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,6 +26,7 @@ jobs:
         with:
           ruby-version: 3.0
           bundler-cache: true
+          working-directory: webapp/ruby/
 
       - run: bundle exec rspec
 
