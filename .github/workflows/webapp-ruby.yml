@@ -1,15 +1,25 @@
-name: test
+name: webapp-ruby
 
 on:
   push:
     branches:
       - master
+    paths:
+      - ".github/workflows/webapp-ruby.yml"
+      - "webapp/ruby/**"
 
   pull_request:
     types:
       - opened
       - synchronize
       - reopened
+    paths:
+      - ".github/workflows/webapp-ruby.yml"
+      - "webapp/ruby/**"
+
+defaults:
+  run:
+    working-directory: webapp/ruby/
 
 jobs:
   test:
@@ -22,6 +32,7 @@ jobs:
         with:
           ruby-version: 3.0
           bundler-cache: true
+          working-directory: webapp/ruby/
 
       - run: bundle exec rspec
 
