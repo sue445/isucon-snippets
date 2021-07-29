@@ -38,5 +38,15 @@ RSpec.describe "NRMysql2Client" do
         it { should eq "chair" }
       end
     end
+
+    context "INSERT" do
+      # https://github.com/isucon/isucon10-qualify/blob/7e6b6cfb672cde2c57d7b594d0352dc48ce317df/webapp/ruby/app.rb#L281
+      let(:sql) do
+        <<~SQL
+          INSERT INTO chair(id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        SQL
+      end
+      it { should eq "chair" }
+    end
   end
 end
