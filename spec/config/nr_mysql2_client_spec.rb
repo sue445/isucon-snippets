@@ -71,5 +71,15 @@ RSpec.describe "NRMysql2Client" do
 
       it { should eq "chair" }
     end
+
+    context "other" do
+      let(:sql) do
+        <<~SQL
+          USE isucon
+        SQL
+      end
+
+      it { should eq "other" }
+    end
   end
 end
