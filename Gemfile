@@ -4,5 +4,6 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
+gem "mysql2"
 gem "newrelic_rpm"
 gem "rspec"
