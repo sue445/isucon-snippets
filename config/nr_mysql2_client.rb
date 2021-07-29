@@ -14,7 +14,7 @@ class NRMysql2Client < Mysql2::Client
   # @param sql [String]
   # @return [String]
   def self.parse_table(sql)
-    sql[/(?:FROM|INTO)\s+(.+?)[\s(]/i, 1].strip.gsub("`", "")
+    sql[/(?:FROM|INTO|UPDATE)\s+(.+?)[\s(]/i, 1].strip.gsub("`", "")
   end
 
   def self.with_newrelic(sql)

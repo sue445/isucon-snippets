@@ -46,6 +46,18 @@ RSpec.describe "NRMysql2Client" do
           INSERT INTO chair(id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         SQL
       end
+
+      it { should eq "chair" }
+    end
+
+    context "UPDATE" do
+      # https://github.com/isucon/isucon10-qualify/blob/7e6b6cfb672cde2c57d7b594d0352dc48ce317df/webapp/ruby/app.rb#L309
+      let(:sql) do
+        <<~SQL
+          UPDATE chair SET stock = stock - 1 WHERE id = ?
+        SQL
+      end
+
       it { should eq "chair" }
     end
   end
