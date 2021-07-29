@@ -7,3 +7,9 @@ gem "dalli"
 gem "connection_pool"
 gem "systemu"
 ```
+
+# env
+```
+RACK_ENV=production
+MEMCACHED_HOST=172.31.xxx.xxx
+```
