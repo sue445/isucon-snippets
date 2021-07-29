@@ -14,6 +14,9 @@ class NRMysql2Client < Mysql2::Client
   # @param sql [String]
   # @return [String]
   def self.parse_table(sql)
+    # Remove `FOR UPDATE` in `SELECT`
+    sql = sql.gsub(/FOR\s+UPDATE/i, "")
+
     sql[/(?:FROM|INTO|UPDATE)\s+(.+?)[\s(]/i, 1].strip.gsub("`", "")
   end
 

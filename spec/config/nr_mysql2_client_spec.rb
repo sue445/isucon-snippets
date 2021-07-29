@@ -37,6 +37,17 @@ RSpec.describe "NRMysql2Client" do
 
         it { should eq "chair" }
       end
+
+      context "with FOR UPDATE" do
+        let(:sql) do
+          # https://github.com/isucon/isucon10-qualify/blob/7e6b6cfb672cde2c57d7b594d0352dc48ce317df/webapp/ruby/app.rb#L304
+          <<~SQL
+            SELECT * FROM chair WHERE id = ? AND stock > 0 FOR UPDATE
+          SQL
+        end
+
+        it { should eq "chair" }
+      end
     end
 
     context "INSERT" do
