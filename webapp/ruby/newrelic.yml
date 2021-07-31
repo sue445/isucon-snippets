@@ -26,13 +26,13 @@ common: &default_settings
     explain_enabled: true
 
   slow_sql:
-    enabled: false
-    explain_enabled: false
+    enabled: true
+    explain_enabled: true
     record_sql: raw
     explain_threshold: 0.01
 
-  agent_enabled: false
-  monitor_mode: false
+  agent_enabled: true
+  monitor_mode: true
 
 # Environment-specific settings are in this section.
 # RAILS_ENV or RACK_ENV (as appropriate) is used to determine the environment.
