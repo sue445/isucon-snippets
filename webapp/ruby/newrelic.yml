@@ -14,7 +14,7 @@ common: &default_settings
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: isuconX-qualify
+  app_name: isuconXX-qualify
 
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
@@ -23,7 +23,7 @@ common: &default_settings
   log_level: error
 
   transaction_tracer:
-    explain_enabled: false
+    explain_enabled: true
 
   slow_sql:
     enabled: false
@@ -39,26 +39,22 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: isuconX-qualify (Development)
-
-test:
-  <<: *default_settings
-  # It doesn't make sense to report to New Relic from automated test runs.
-  monitor_mode: false
+  app_name: isuconXX-qualify (Development)
 
 staging:
   <<: *default_settings
-  app_name: isuconX-qualify (Staging)
+  app_name: isuconXX-qualify (Staging)
 
 production:
   <<: *default_settings
 
-  agent_enabled: true
-  monitor_mode: true
-
-  transaction_tracer:
-    explain_enabled: true
-
-  slow_sql:
-    enabled: true
-    explain_enabled: true
+# TODO: 終了直前に諸々無効化する
+#  agent_enabled: false
+#  monitor_mode: false
+#
+#  transaction_tracer:
+#    explain_enabled: false
+#
+#  slow_sql:
+#    enabled: false
+#    explain_enabled: false
