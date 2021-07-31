@@ -17,7 +17,7 @@ class NRMysql2Client < Mysql2::Client
     # Remove `FOR UPDATE` in `SELECT`
     sql = sql.gsub(/FOR\s+UPDATE/i, "")
 
-    sql[/(?:FROM|INTO|UPDATE)\s+(.+?)[\s(]/i, 1]&.strip&.gsub("`", "") || "other"
+    sql[/(?:FROM|INTO|UPDATE)\s+([^(]+?)[\s(]/i, 1]&.strip&.gsub("`", "") || "other"
   end
 
   def self.with_newrelic(sql)

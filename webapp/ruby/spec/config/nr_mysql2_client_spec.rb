@@ -48,6 +48,31 @@ RSpec.describe "NRMysql2Client" do
 
         it { should eq "chair" }
       end
+
+      context "with sub query" do
+        let(:sql) do
+          <<~SQL
+            SELECT DISTINCT id
+             , name, description, thumbnail, address, latitude, longitude, rent, door_height, door_width, features, popularity, popularity_desc
+            FROM (
+              SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?)
+              UNION ALL
+              SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?)
+              UNION ALL
+              SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?)
+              UNION ALL
+              SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?)
+              UNION ALL
+              SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?)
+              UNION ALL
+              SELECT * FROM estate WHERE (door_width >= ? AND door_height >= ?)
+            ) AS estate_all
+            ORDER BY popularity_desc ASC, id ASC LIMIT 20
+          SQL
+        end
+
+        it { should eq "estate" }
+      end
     end
 
     context "INSERT" do
