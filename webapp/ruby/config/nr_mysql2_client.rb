@@ -42,3 +42,7 @@ class NRMysql2Client < Mysql2::Client
     end
   end
 end
+
+# 下記をコピペしていい感じに切り替えられるようにする
+# Mysql2Client = Mysql2::Client
+# Mysql2Client = NRMysql2Client
