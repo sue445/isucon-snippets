@@ -1,3 +1,5 @@
+# ref. https://github.com/puma/puma/blob/master/lib/puma/dsl.rb
+
 environment "production"
 
 port '8000', '0.0.0.0'
