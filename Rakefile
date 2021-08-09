@@ -57,6 +57,7 @@ namespace :deploy do
         # nginx
         # exec ip_address, "sudo nginx -t"
         # exec ip_address, "sudo systemctl restart nginx"
+        # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
 
         # app
         # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: RUBY_APP_DIR
