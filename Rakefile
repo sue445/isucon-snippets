@@ -22,6 +22,9 @@ CURRENT_DIR = "/home/isucon/isutrain"
 # rubyアプリのディレクトリ
 RUBY_APP_DIR = "/home/isucon/isutrain/webapp/ruby"
 
+# アプリのservice名
+APP_SERVICE_NAME = "isutrain-ruby.service"
+
 # デプロイを記録するissue
 GITHUB_REPO     = "sue445/isuconXX-qualify"
 GITHUB_ISSUE_ID = 1
@@ -61,10 +64,9 @@ namespace :deploy do
         # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
 
-        # app_service_name = "isutrain-ruby.service"
-        # exec ip_address, "sudo systemctl stop #{app_service_name}"
-        # exec ip_address, "sudo systemctl start #{app_service_name}"
-        # exec ip_address, "sudo systemctl status #{app_service_name}"
+        # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
+        # exec ip_address, "sudo systemctl start #{APP_SERVICE_NAME}"
+        # exec ip_address, "sudo systemctl status #{APP_SERVICE_NAME}"
 
       when :db
         # mysql
