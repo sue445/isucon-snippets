@@ -1,13 +1,14 @@
 # Gemfile
 ```ruby
 gem "newrelic_rpm"
-gem "sentry-ruby"
+gem "oj"
 gem "parallel"
+gem "sentry-ruby"
 gem "systemu"
 
-# gem "redis"
-# gem "dalli"
 # gem "connection_pool"
+# gem "dalli"
+# gem "redis"
 # gem "sidekiq"
 ```
 
