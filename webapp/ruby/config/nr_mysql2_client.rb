@@ -10,7 +10,7 @@ class NRMysql2Client < Mysql2::Client
     super
   end
 
-  # SQL文からテーブル名のみを抽出する
+  # SQL文からテーブル名のみを抽出する。サブクエリやJOINなどで複数のテーブルが含まれる場合はカンマ区切りで連結して返す
   # @param sql [String]
   # @return [String]
   def self.parse_table(sql)
