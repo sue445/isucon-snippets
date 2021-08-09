@@ -4,9 +4,9 @@ environment "production"
 
 port '8000', '0.0.0.0'
 
-threads 0, 32
+threads 0, 16
 
-workers 32
+workers 16
 
 preload_app!
 
