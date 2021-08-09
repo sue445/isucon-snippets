@@ -19,6 +19,9 @@ INITIALIZE_ENDPOINT = "http://#{HOSTS[:ap]}/initialize"
 # デプロイ先のカレントディレクトリ
 CURRENT_DIR = "/home/isucon/isutrain"
 
+# rubyアプリのディレクトリ
+RUBY_APP_DIR = "/home/isucon/isutrain/webapp/ruby"
+
 # デプロイを記録するissue
 GITHUB_REPO     = "sue445/isuconXX-qualify"
 GITHUB_ISSUE_ID = 1
@@ -53,10 +56,15 @@ namespace :deploy do
         # exec ip_address, "sudo systemctl restart nginx"
 
         # app
-        # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
-        # exec ip_address, "sudo systemctl stop isutrain-ruby.service"
-        # exec ip_address, "sudo systemctl start isutrain-ruby.service"
-        # exec ip_address, "sudo systemctl status isutrain-ruby.service"
+        # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} config set --local path 'vendor/bundle'", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
+
+        # app_service_name = "isutrain-ruby.service"
+        # exec ip_address, "sudo systemctl stop #{app_service_name}"
+        # exec ip_address, "sudo systemctl start #{app_service_name}"
+        # exec ip_address, "sudo systemctl status #{app_service_name}"
 
       when :db
         # mysql
