@@ -1,5 +1,5 @@
 # Ruby実装のスニペット
-## 脳死で書くやつGemfile
+## 脳死で書くGemfile
 ```ruby
 gem "newrelic_rpm"
 gem "oj"
