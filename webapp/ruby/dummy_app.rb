@@ -11,8 +11,6 @@ require_relative "./config/sentry"
 require_relative "./config/sentry_methods"
 
 class App < Sinatra::Base
-  use Sentry::Rack::CaptureExceptions
-
   get "/" do
     "It works"
   end
