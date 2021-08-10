@@ -6,6 +6,13 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 gem "mysql2"
 gem "newrelic_rpm"
+gem "puma"
+gem "sinatra"
+
+group :development do
+  gem "dotenv"
+  gem "foreman"
+end
 
 group :test do
   gem "rspec"

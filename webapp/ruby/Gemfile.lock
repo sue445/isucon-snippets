@@ -2,8 +2,18 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
+    foreman (0.87.2)
+    mustermann (1.1.1)
+      ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
     newrelic_rpm (7.2.0)
+    nio4r (2.5.8)
+    puma (5.4.0)
+      nio4r (~> 2.0)
+    rack (2.2.3)
+    rack-protection (2.1.0)
+      rack
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
       rspec-expectations (~> 3.10.0)
@@ -17,14 +27,25 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.2)
+    ruby2_keywords (0.0.5)
+    sinatra (2.1.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.1.0)
+      tilt (~> 2.0)
+    tilt (2.0.10)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
+  foreman
   mysql2
   newrelic_rpm
+  puma
   rspec
+  sinatra
 
 BUNDLED WITH
    2.2.22
