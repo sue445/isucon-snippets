@@ -10,6 +10,7 @@ gem "puma"
 gem "sentry-ruby"
 gem "sinatra"
 gem "systemu"
+gem "stackprof"
 
 group :development do
   gem "dotenv"
