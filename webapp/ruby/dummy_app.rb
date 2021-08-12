@@ -20,6 +20,8 @@ class App < Sinatra::Base
   end
 
   get "/users/:id" do
-    normalized_route = request.env["sinatra.route"].gsub(%r([ /:]+), "-")
+    with_stackprof(true) do
+      "user #{params[:id]}"
+    end
   end
 end
