@@ -18,4 +18,8 @@ class App < Sinatra::Base
   get "/sentry_test" do
     raise "sentry test"
   end
+
+  get "/users/:id" do
+    normalized_route = request.env["sinatra.route"].gsub(%r([ /:]+), "-")
+  end
 end
