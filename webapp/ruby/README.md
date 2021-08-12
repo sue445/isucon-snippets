@@ -5,6 +5,7 @@ gem "newrelic_rpm"
 gem "oj"
 gem "parallel"
 gem "sentry-ruby"
+gem "stackprof"
 gem "systemu"
 
 # 必要に応じて使う
