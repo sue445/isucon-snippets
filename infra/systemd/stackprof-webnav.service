@@ -1,0 +1,14 @@
+[Unit]
+Description=stackprof-webnav
+# After=network.target mysql.service
+
+[Service]
+User=isucon
+ExecStart=/home/isucon/.x stackprof-webnav -d /home/isucon/webapp/ruby/tmp/stackprof/ -p 9293 -o 0.0.0.0
+WorkingDirectory=/home/isucon/webapp/ruby
+EnvironmentFile=/home/isucon/webapp/env
+EnvironmentFile=/home/isucon/secret_env
+TimeoutStopSec=1
+
+[Install]
+WantedBy=multi-user.target
