@@ -1,3 +1,5 @@
+require "stackprof"
+
 module StackprofMethods
   def with_stackprof(enabled = true)
     unless enabled
