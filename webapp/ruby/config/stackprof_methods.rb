@@ -1,6 +1,10 @@
 require "stackprof"
 
 module StackprofMethods
+  # sinatraのroutes単位でstackprofを仕込むためのヘルパメソッド。1ファイルにつき1分間のdump内容が記録される
+  #
+  # @param enabled [Boolean]
+  # @yield
   def with_stackprof(enabled = true)
     unless enabled
       return yield
