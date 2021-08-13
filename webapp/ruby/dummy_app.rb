@@ -20,7 +20,7 @@ class App < Sinatra::Base
       save_every: 1,
       path: "tmp/stackprof/",
       # 特定のPATHのみstackprofを有効化する
-      enabled: lambda { |env| env["REQUEST_METHOD"] == "GET" && env["PATH_INFO"].start_with?("/users/") }
+      enabled: -> (env) { env["REQUEST_METHOD"] == "GET" && env["PATH_INFO"].start_with?("/users/") }
 
   get "/" do
     "It works"
