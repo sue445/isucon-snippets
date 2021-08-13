@@ -1,3 +1,4 @@
+require_relative "../config/hash_group_by_prefix"
 require_relative "../config/hash_select_with_prefix"
 require_relative "../config/nr_mysql2_client"
 
