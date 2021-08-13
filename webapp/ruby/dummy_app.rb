@@ -1,5 +1,6 @@
 require "sinatra"
 require "dotenv"
+require "stackprof"
 
 Dotenv.load
 
@@ -11,11 +12,24 @@ require_relative "./config/sentry"
 require_relative "./config/sentry_methods"
 
 class App < Sinatra::Base
+  use StackProf::Middleware,
+      mode: :cpu,
+      interval: 1000,
+      raw: true,
+      save_every: 1,
+      path: "tmp/stackprof/",
+      # 特定のPATHのみstackprofを有効化する
+      enabled: lambda { |env| env["REQUEST_METHOD"] == "GET" && env["PATH_INFO"].start_with?("/users/") }
+
   get "/" do
     "It works"
   end
 
   get "/sentry_test" do
     raise "sentry test"
+  end
+
+  get "/users/:id" do
+    "user #{params[:id]}"
   end
 end
