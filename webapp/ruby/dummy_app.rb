@@ -10,6 +10,7 @@ ENV["RACK_ENV"] = "development"
 require_relative "./config/sentry"
 
 require_relative "./config/sentry_methods"
+require_relative "./config/stackprof_methods"
 
 class App < Sinatra::Base
   use StackProf::Middleware,
@@ -31,5 +32,13 @@ class App < Sinatra::Base
 
   get "/users/:id" do
     "user #{params[:id]}"
+  end
+
+  include StackprofMethods
+
+  get "/articles/:id" do
+    with_stackprof do
+      "article #{params[:id]}"
+    end
   end
 end
