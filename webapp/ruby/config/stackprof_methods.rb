@@ -16,7 +16,7 @@ module StackprofMethods
     # NOTE: 1分1ファイルにする
     timestamp = Time.now.strftime("%Y%m%d-%H%M")
 
-    StackProf.run(mode: :cpu, interval: 1000, raw: true, path: "tmp/stackprof/stackprof-cpu-#{normalized_route}-#{timestamp}.dump") do
+    StackProf.run(mode: :cpu, interval: 1000, raw: true, path: "tmp/stackprof/stackprof-cpu-#{normalized_route}-#{Process.pid}-#{timestamp}.dump") do
       return yield
     end
   end
