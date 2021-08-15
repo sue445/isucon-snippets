@@ -12,6 +12,20 @@ require_relative "./config/sentry"
 require_relative "./config/sentry_methods"
 require_relative "./config/stackprof_methods"
 
+def enabled_stackprof_path?(env)
+  case env["REQUEST_METHOD"]
+  when "GET"
+    case env["PATH_INFO"]
+    when %r{^/users/[0-9]+$}
+      return true
+    end
+
+  when "POST"
+  end
+
+  false
+end
+
 class App < Sinatra::Base
   use StackProf::Middleware,
       mode: :cpu,
@@ -20,7 +34,7 @@ class App < Sinatra::Base
       save_every: 1,
       path: "tmp/stackprof/",
       # 特定のPATHのみstackprofを有効化する
-      enabled: -> (env) { env["REQUEST_METHOD"] == "GET" && env["PATH_INFO"].start_with?("/users/") }
+      enabled: -> (env) { enabled_stackprof_path?(env) }
 
   get "/" do
     "It works"
