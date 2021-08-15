@@ -16,11 +16,15 @@ def enabled_stackprof_path?(env)
   case env["REQUEST_METHOD"]
   when "GET"
     case env["PATH_INFO"]
-    when %r{^/users/[0-9]+$}
+    when %r{^/api/users/[0-9]+$}
       return true
     end
 
   when "POST"
+    case env["PATH_INFO"]
+    when %r{^/api/users/[0-9]+$}
+      return true
+    end
   end
 
   false
@@ -44,13 +48,13 @@ class App < Sinatra::Base
     raise "sentry test"
   end
 
-  get "/users/:id" do
+  get "/api/users/:id" do
     "user #{params[:id]}"
   end
 
   include StackprofMethods
 
-  get "/articles/:id" do
+  get "/api/articles/:id" do
     with_stackprof do
       "article #{params[:id]}"
     end
