@@ -15,16 +15,16 @@ require_relative "./config/stackprof_methods"
 def enabled_stackprof_path?(env)
   case env["REQUEST_METHOD"]
   when "GET"
-    case env["PATH_INFO"]
-    when %r{^/api/users/[0-9]+$}
-      return true
-    end
+    # case env["PATH_INFO"]
+    # when %r{^/api/users/[0-9]+$}
+    #   return true
+    # end
 
   when "POST"
-    case env["PATH_INFO"]
-    when %r{^/api/users/[0-9]+$}
-      return true
-    end
+    # case env["PATH_INFO"]
+    # when %r{^/api/users/[0-9]+$}
+    #   return true
+    # end
   end
 
   false
