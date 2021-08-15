@@ -35,7 +35,7 @@ class App < Sinatra::Base
       mode: :cpu,
       interval: 1000,
       raw: true,
-      save_every: 1,
+      save_every: ENV["RACK_ENV"] == "production" ? 200 : 1,
       path: "tmp/stackprof/",
       # 特定のPATHのみstackprofを有効化する
       enabled: -> (env) { enabled_stackprof_path?(env) }
