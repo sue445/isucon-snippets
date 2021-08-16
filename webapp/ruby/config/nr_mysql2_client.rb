@@ -17,6 +17,9 @@ class NRMysql2Client < Mysql2::Client
     # Remove `FOR UPDATE` in `SELECT`
     sql = sql.gsub(/FOR\s+UPDATE/i, "")
 
+    # Remove `ON DUPLICATE KEY UPDATE` in `INSERT`
+    sql = sql.gsub(/ON\s+DUPLICATE\s+KEY\s+UPDATE/i, "")
+
     tables = sql.scan(/(?:FROM|INTO|UPDATE|JOIN)\s+([^(]+?)[\s(]/i).
       map { |matched| matched[0].strip.gsub("`", "") }.reject(&:empty?).uniq
 

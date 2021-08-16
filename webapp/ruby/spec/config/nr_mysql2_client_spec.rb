@@ -201,14 +201,30 @@ RSpec.describe "NRMysql2Client" do
     end
 
     context "INSERT" do
-      # https://github.com/isucon/isucon10-qualify/blob/7e6b6cfb672cde2c57d7b594d0352dc48ce317df/webapp/ruby/app.rb#L281
-      let(:sql) do
-        <<~SQL
-          INSERT INTO chair(id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        SQL
+      context "Simple" do
+        # https://github.com/isucon/isucon10-qualify/blob/7e6b6cfb672cde2c57d7b594d0352dc48ce317df/webapp/ruby/app.rb#L281
+        let(:sql) do
+          <<~SQL
+            INSERT INTO chair(id, name, description, thumbnail, price, height, width, depth, color, features, kind, popularity, stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          SQL
+        end
+
+        it { should eq "chair" }
       end
 
-      it { should eq "chair" }
+      context "ON DUPLICATE KEY UPDATE" do
+        # https://github.com/isucon/isucon6-qualify/blob/ba21fa19573deba630f34ebe470141dff6a67273/webapp/ruby/lib/isuda/web.rb#L220-L223
+        let(:sql) do
+          <<~SQL
+            INSERT INTO entry (author_id, keyword, description, created_at, updated_at)
+            VALUES (?, ?, ?, NOW(), NOW())
+            ON DUPLICATE KEY UPDATE
+            author_id = ?, keyword = ?, description = ?, updated_at = NOW()
+          SQL
+        end
+
+        it { should eq "entry" }
+      end
     end
 
     context "UPDATE" do
