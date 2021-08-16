@@ -1,5 +1,6 @@
 require "newrelic_rpm"
 require "mysql2"
+require "sentry-ruby"
 
 # https://github.com/shirokanezoo/isucon9f/commit/db8ef5934666fde3e23c17a04c4394b12a343110#diff-e90610944058d63767be863ddbd31bfd を魔改造
 class NRMysql2Client < Mysql2::Client
