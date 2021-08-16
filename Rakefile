@@ -101,9 +101,6 @@ end
 
 desc "Prepare for deploy"
 task :setup do
-  # push前のhashを取得しといて後で使う
-  @before_revision = `git rev-parse --short origin/HEAD`.strip
-
   sh "git push"
 end
 
@@ -118,7 +115,23 @@ end
 desc "Record current commit to issue"
 task :record do
   revision = `git rev-parse --short HEAD`.strip
-  message = ":rocket: Deployed #{revision} ([compare](https://github.com/#{GITHUB_REPO}/compare/#{@before_revision}...#{revision}))"
+
+  current_tag = [
+    Time.now.strftime("%Y%m%d-%H%M%S"),
+    `whoami`.strip
+  ].join("-")
+
+  message = ":rocket: Deployed #{revision} [#{current_tag}](https://github.com/#{GITHUB_REPO}/releases/tag/#{current_tag})"
+
+  # 直前のリリースのtagを取得する
+  before_tag = `git tag | tail -n 1`.strip
+
+  unless before_tag.empty?
+    message << " ([compare](https://github.com/#{GITHUB_REPO}/compare/#{before_tag}...#{current_tag}))"
+  end
+
+  sh "git tag -a #{current_tag} -m 'Release #{current_tag}'"
+  sh "git push --tags"
 
   sh "gh issue comment --repo #{GITHUB_REPO} #{GITHUB_ISSUE_ID} --body '#{message}'"
 end
