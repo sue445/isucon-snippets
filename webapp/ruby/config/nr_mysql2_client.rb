@@ -36,6 +36,8 @@ class NRMysql2Client < Mysql2::Client
 
     table = parse_table(sql)
 
+    Sentry.set_extra("sql", sql)
+
     NewRelic::Agent::Datastores.wrap('MySQL', op, table, callback) do
       yield
     end
