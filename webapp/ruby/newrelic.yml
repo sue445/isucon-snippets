@@ -14,7 +14,7 @@ common: &default_settings
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: isuconXX-qualify
+  app_name: isucon6-qualify
 
   # To disable the agent regardless of other settings, uncomment the following:
   # agent_enabled: false
@@ -31,6 +31,9 @@ common: &default_settings
     record_sql: raw
     explain_threshold: 0.01
 
+  thread_profiler:
+    enabled: true
+
   agent_enabled: true
   monitor_mode: true
 
@@ -39,11 +42,11 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: isuconXX-qualify (Development)
+  app_name: isucon6-qualify (Development)
 
 staging:
   <<: *default_settings
-  app_name: isuconXX-qualify (Staging)
+  app_name: isucon6-qualify (Staging)
 
 production:
   <<: *default_settings
@@ -58,3 +61,6 @@ production:
 #  slow_sql:
 #    enabled: false
 #    explain_enabled: false
+#
+#  thread_profiler:
+#    enabled: false
