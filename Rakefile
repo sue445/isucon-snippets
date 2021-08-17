@@ -69,6 +69,8 @@ namespace :deploy do
         # exec ip_address, "sudo systemctl start #{APP_SERVICE_NAME}"
         # exec ip_address, "sudo systemctl status #{APP_SERVICE_NAME}"
 
+        exec ip_address, "sudo rm -f /tmp/sql.log"
+
       when :db
         # mysql
         # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
