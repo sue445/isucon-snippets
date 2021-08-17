@@ -4,6 +4,7 @@
 gem "newrelic_rpm"
 gem "oj"
 gem "parallel"
+gem "puma_worker_killer", require: false
 gem "sentry-ruby"
 gem "stackprof"
 gem "systemu"
