@@ -69,7 +69,8 @@ namespace :deploy do
         # exec ip_address, "sudo systemctl start #{APP_SERVICE_NAME}"
         # exec ip_address, "sudo systemctl status #{APP_SERVICE_NAME}"
 
-        exec ip_address, "sudo rm -f /tmp/sql.log"
+        # exec ip_address, "sudo rm -f /tmp/sql.log"
+        # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
 
       when :db
         # mysql
