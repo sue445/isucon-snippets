@@ -18,4 +18,8 @@ module RedisMethods
 
     actual
   end
+
+  def clear_redis_all_keys
+    $redis.flushall
+  end
 end
