@@ -12,7 +12,7 @@ end
 def enabled_stackprof_path?(env)
   return true
 
-  # FIXME: 個別指定の場合はsave_everyを小さくしないとdumpが保存されない
+  # TODO: 個別指定の場合はsave_everyを小さくしないとdumpが保存されないので一緒に変更すること
   case env["REQUEST_METHOD"]
   when "GET"
     # case env["PATH_INFO"]
