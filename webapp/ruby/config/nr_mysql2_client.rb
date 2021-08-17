@@ -6,11 +6,6 @@ require "sentry-ruby"
 class NRMysql2Client < Mysql2::Client
   LOG_FILE = "/tmp/sql.log"
 
-  def initialize(*args)
-    @logger = Logger.new(LOG_FILE)
-    super
-  end
-
   # SQL文からテーブル名のみを抽出する。サブクエリやJOINなどで複数のテーブルが含まれる場合はカンマ区切りで連結して返す
   # @param sql [String]
   # @return [String]
@@ -39,15 +34,18 @@ class NRMysql2Client < Mysql2::Client
 
     Sentry.set_extras(sql: sql)
 
+    logger.info "[#{table}] #{sql}"
+
     NewRelic::Agent::Datastores.wrap('MySQL', op, table, callback) do
       yield
     end
   end
 
-  def query(sql, *args)
-    table = NRMysql2Client.parse_table(sql)
-    @logger.info "[#{table}] #{sql}"
+  def self.logger
+    @logger ||= Logger.new(LOG_FILE)
+  end
 
+  def query(sql, *args)
     NRMysql2Client.with_newrelic(sql) do
       super
     end
