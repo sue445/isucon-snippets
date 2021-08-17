@@ -1,6 +1,5 @@
 require "sinatra"
 require "dotenv"
-require "stackprof"
 
 Dotenv.load
 
