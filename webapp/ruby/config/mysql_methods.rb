@@ -1,4 +1,4 @@
-require "tempfile"
+require 'securerandom'
 require_relative "./sentry_methods"
 
 module MysqlMethods
@@ -11,18 +11,25 @@ module MysqlMethods
   # @yieldparam 一時ファイルのパス
   def with_create_csv_file_from_mysql(sql, quote: true, suffix_sql: nil)
     # TODO: mysqlやmariadbのserviceファイルでPrivateTmpを無効化しないと/tmpにファイルが出力できない
-    Tempfile.create(["sql", ".csv"], "/tmp") do |f|
+    dist_file = File.join("/tmp", "#{SecureRandom.uuid}.csv")
+
+    if defined?(::NRMysql2Client)
       NRMysql2Client.with_newrelic(sql) do
-        create_csv_file_from_mysql(sql, dist_file: f.path, quote: quote, suffix_sql: suffix_sql)
+        create_csv_file_from_mysql(sql, dist_file: dist_file, quote: quote, suffix_sql: suffix_sql)
       end
-
-      # DBサーバに出力されているのでscpでローカルに転送する
-      unless ENV["DB_HOST"] == "127.0.0.1"
-        system_with_sentry("scp -i /home/isucon/.ssh/id_ed25519 isucon@#{ENV["DB_HOST"]}:#{f.path} #{f.path}")
-      end
-
-      yield f.path
+    else
+      create_csv_file_from_mysql(sql, dist_file: dist_file, quote: quote, suffix_sql: suffix_sql)
     end
+
+    # DBサーバに出力されているのでscpでローカルに転送する
+    # TODO: scpするにはdbサーバのauthorized_keysにAPの公開鍵が登録されている必要がある
+    unless ENV["DB_HOST"] == "127.0.0.1"
+      system_with_sentry("scp -i /home/isucon/.ssh/id_ed25519 isucon@#{ENV["DB_HOST"]}:#{dist_file} #{dist_file}")
+    end
+
+    yield dist_file
+  ensure
+    FileUtils.rm_f(dist_file)
   end
 
   # mysqlコマンドを実行して結果をCSVファイルに出力する
