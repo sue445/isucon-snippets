@@ -16,6 +16,14 @@ gem "systemu"
 # gem "sidekiq"
 ```
 
+## 脳死で書くrequire
+```ruby
+require_relative "./config/sentry_methods"
+
+# TODO: 終了直前にコメントアウトする
+require_relative "./config/enable_monitoring"
+```
+
 ## Dummy app
 ```bash
 bundle install
