@@ -1,5 +1,5 @@
 require "tempfile"
-require_relative "./sentry"
+require_relative "./sentry_methods"
 
 module MysqlMethods
   include SentryMethods
