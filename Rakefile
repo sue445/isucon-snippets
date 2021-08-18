@@ -10,8 +10,9 @@
 
 # デプロイ先のサーバ
 HOSTS = {
-  ap: "",
-  # db: "",
+  host01: "",
+  # host02: "",
+  # host03: "",
 }
 
 INITIALIZE_ENDPOINT = "http://#{HOSTS[:ap]}/initialize"
@@ -53,7 +54,7 @@ namespace :deploy do
       # exec ip_address, "sudo systemctl start newrelic-infra"
 
       case name
-      when :ap
+      when :host01
         # nginx
         # exec ip_address, "sudo nginx -t"
         # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
@@ -72,7 +73,6 @@ namespace :deploy do
         # exec ip_address, "sudo rm -f /tmp/sql.log"
         # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
 
-      when :db
         # mysql
         # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
