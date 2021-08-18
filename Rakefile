@@ -15,7 +15,7 @@ HOSTS = {
   # host03: "",
 }
 
-INITIALIZE_ENDPOINT = "http://#{HOSTS[:ap]}/initialize"
+INITIALIZE_ENDPOINT = "http://#{HOSTS[:host01]}/initialize"
 
 # デプロイ先のカレントディレクトリ
 CURRENT_DIR = "/home/isucon/isutrain"
