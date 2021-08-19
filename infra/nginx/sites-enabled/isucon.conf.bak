@@ -15,7 +15,7 @@ server {
     proxy_connect_timeout 300;
     proxy_send_timeout 300;
 
-    location ~ \.(js|map) {
+    location ~ \.(js|map)$ {
       expires 1d;
     }
 
