@@ -7,7 +7,6 @@ gem "parallel"
 gem "puma_worker_killer", require: false
 gem "sentry-ruby"
 gem "stackprof"
-gem "systemu"
 
 # 必要に応じて使う
 # gem "connection_pool"
