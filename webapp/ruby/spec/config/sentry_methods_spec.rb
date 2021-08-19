@@ -1,5 +1,3 @@
-require "time"
-
 RSpec.describe SentryMethods do
   include SentryMethods
 
