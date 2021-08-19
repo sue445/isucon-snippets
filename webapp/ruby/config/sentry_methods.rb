@@ -1,5 +1,4 @@
 require "sentry-ruby"
-require "systemu"
 require "open3"
 
 module SentryMethods
