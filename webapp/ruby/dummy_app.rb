@@ -11,11 +11,14 @@ require_relative "./config/enable_monitoring"
 require_relative "./config/sentry_methods"
 
 class App < Sinatra::Base
+  include SentryMethods
+
   get "/" do
     "It works"
   end
 
   get "/sentry_test" do
+    system_with_sentry("ls ssssss")
     raise "sentry test"
   end
 
