@@ -1,5 +1,6 @@
 require "sentry-ruby"
 require "systemu"
+require "open3"
 
 module SentryMethods
   def with_sentry
@@ -17,7 +18,7 @@ module SentryMethods
   #
   # @raise RuntimeError 外部コマンドが失敗した
   def system_with_sentry(command)
-    status, stdout, stderr = systemu(command)
+    stdout, stderr, status = Open3.capture3(command)
 
     unless status.success?
       Sentry.set_extras(
