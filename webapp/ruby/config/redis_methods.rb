@@ -8,20 +8,20 @@ module RedisMethods
   #
   # @param cache_key [String]
   # @param enabled [Boolean] キャッシュを有効にするかどうか
-  # @param marshal [Boolean] redisにMarshal.dumpで保存するかどうか(String以外はtrue必須)
+  # @param is_object [Boolean] String以外を保存するかどうか
   #
   # @yield キャッシュがなかった場合に実データを取得しにいくための処理
   # @yieldreturn [Object] redisに保存されるデータ
   #
   # @return [Object] redisに保存されるデータ
-  def with_redis(cache_key, enabled: true, marshal: false)
+  def with_redis(cache_key, enabled: true, is_object: false)
     unless enabled
       return yield
     end
 
     cached_response = $redis.get(cache_key)
     if cached_response
-      if marshal
+      if is_object
         return Marshal.load(cached_response)
       else
         return cached_response
@@ -31,7 +31,7 @@ module RedisMethods
     actual = yield
 
     if actual
-      if marshal
+      if is_object
         $redis.set(cache_key, Marshal.dump(actual))
       else
         $redis.set(cache_key, actual)
