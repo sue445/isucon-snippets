@@ -1,7 +1,10 @@
 require "redis"
 require "connection_pool"
+require "oj"
 
 $redis = ConnectionPool::Wrapper.new(size: 32, timeout: 3) { Redis.new(host: ENV["REDIS_HOST"]) }
+
+::Oj.default_options = { mode: :compat }
 
 module RedisMethods
   # redisにあればredisから取得し、キャッシュになければブロック内の処理で取得しredisに保存するメソッド（Rails.cache.fetchと同様のメソッド）
@@ -22,7 +25,8 @@ module RedisMethods
     cached_response = $redis.get(cache_key)
     if cached_response
       if is_object
-        return Marshal.load(cached_response)
+        # return Marshal.load(cached_response)
+        return Oj.load(cached_response)
       else
         return cached_response
       end
@@ -32,7 +36,10 @@ module RedisMethods
 
     if actual
       if is_object
-        $redis.set(cache_key, Marshal.dump(actual))
+        # data = Marshal.dump(actual)
+        data = Oj.dump(actual)
+
+        $redis.set(cache_key, data)
       else
         $redis.set(cache_key, actual)
       end
