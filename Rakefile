@@ -59,6 +59,11 @@ namespace :deploy do
 
       case name
       when :host01
+        # mysql
+        # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
+        # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
+        # exec ip_address, "sudo systemctl restart mysql"
+
         # nginx
         # exec ip_address, "sudo cp infra/nginx/nginx.conf /etc/nginx/nginx.conf"
         # exec ip_address, "sudo nginx -t"
@@ -77,11 +82,6 @@ namespace :deploy do
 
         # exec ip_address, "sudo rm -f /tmp/sql.log"
         # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
-
-        # mysql
-        # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
-        # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
-        # exec ip_address, "sudo systemctl restart mysql"
 
         # memcached
         # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
