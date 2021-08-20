@@ -44,6 +44,10 @@ namespace :deploy do
 
       # common
       exec ip_address, "git pull --ff"
+
+      exec ip_address, "sudo cp infra/systemd/#{APP_SERVICE_NAME} /etc/systemd/system/#{APP_SERVICE_NAME}"
+
+      # systemdの更新後にdaemon-reloadする
       exec ip_address, "sudo systemctl daemon-reload"
 
       # TODO: 終了10分前にdisableすること！！！！！！
