@@ -57,20 +57,30 @@ namespace :deploy do
       # exec ip_address, "sudo systemctl enable newrelic-infra"
       # exec ip_address, "sudo systemctl start newrelic-infra"
 
+      # mysql
       case name
       when :host01
-        # mysql
         # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
         # exec ip_address, "sudo systemctl restart mysql"
+      else
+        # exec ip_address, "sudo systemctl stop mysql"
+      end
 
-        # nginx
+      # nginx
+      case name
+      when :host01
         # exec ip_address, "sudo cp infra/nginx/nginx.conf /etc/nginx/nginx.conf"
         # exec ip_address, "sudo nginx -t"
         # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
         # exec ip_address, "sudo systemctl restart nginx"
+      else
+        # exec ip_address, "sudo systemctl stop nginx"
+      end
 
-        # app
+      # app
+      case name
+      when :host01
         # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local path 'vendor/bundle'", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
@@ -79,28 +89,30 @@ namespace :deploy do
         # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
         # exec ip_address, "sudo systemctl start #{APP_SERVICE_NAME}"
         # exec ip_address, "sudo systemctl status #{APP_SERVICE_NAME}"
-
-        # exec ip_address, "sudo rm -f /tmp/sql.log"
-        # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
-
-        # memcached
-        # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
-        # exec ip_address, "sudo systemctl restart memcached"
-
-        # redis
-        # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
-        # exec ip_address, "sudo systemctl restart redis"
-
-        # sidekiq
-        # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
-        # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
-        # exec ip_address, "sudo systemctl start isutrain-sidekiq.service"
-        # exec ip_address, "sudo systemctl status isutrain-sidekiq.service"
-
-        # payment
-        # exec ip_address, "docker-compose -f webapp/docker-compose.yml -f webapp/docker-compose.ruby.yml down"
-        # exec ip_address, "docker-compose -f webapp/docker-compose.yml up -d --build"
+      else
+        # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
       end
+
+      # exec ip_address, "sudo rm -f /tmp/sql.log"
+      # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
+
+      # memcached
+      # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
+      # exec ip_address, "sudo systemctl restart memcached"
+
+      # redis
+      # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
+      # exec ip_address, "sudo systemctl restart redis"
+
+      # sidekiq
+      # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
+      # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
+      # exec ip_address, "sudo systemctl start isutrain-sidekiq.service"
+      # exec ip_address, "sudo systemctl status isutrain-sidekiq.service"
+
+      # docker-compose
+      # exec ip_address, "docker-compose -f webapp/docker-compose.yml -f webapp/docker-compose.ruby.yml down"
+      # exec ip_address, "docker-compose -f webapp/docker-compose.yml up -d --build"
 
       puts "[deploy:#{name}] END"
     end
