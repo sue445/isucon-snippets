@@ -60,6 +60,7 @@ namespace :deploy do
       case name
       when :host01
         # nginx
+        # exec ip_address, "sudo cp infra/nginx/nginx.conf /etc/nginx/nginx.conf"
         # exec ip_address, "sudo nginx -t"
         # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
         # exec ip_address, "sudo systemctl restart nginx"
