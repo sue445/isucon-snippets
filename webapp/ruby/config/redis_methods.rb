@@ -30,10 +30,12 @@ module RedisMethods
 
     actual = yield
 
-    if marshal
-      $redis.set(cache_key, Marshal.dump(actual))
-    else
-      $redis.set(cache_key, actual)
+    if actual
+      if marshal
+        $redis.set(cache_key, Marshal.dump(actual))
+      else
+        $redis.set(cache_key, actual)
+      end
     end
 
     actual
