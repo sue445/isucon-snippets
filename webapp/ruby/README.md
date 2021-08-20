@@ -17,6 +17,7 @@ gem "stackprof"
 
 ## 脳死で書くrequire
 ```ruby
+# TODO: Sinatra app内で include SentryMethods する
 require_relative "./config/sentry_methods"
 
 # TODO: 終了直前にコメントアウトする
