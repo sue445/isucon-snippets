@@ -39,7 +39,7 @@ module RedisMethods
     actual
   end
 
-  def clear_redis_all_keys
+  def initialize_redis
     $redis.flushall
   end
 end
