@@ -97,22 +97,42 @@ namespace :deploy do
       # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
 
       # memcached
-      # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
-      # exec ip_address, "sudo systemctl restart memcached"
+      case name
+      when :host01
+        # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
+        # exec ip_address, "sudo systemctl restart memcached"
+      else
+        # exec ip_address, "sudo systemctl stop memcached"
+      end
 
       # redis
-      # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
-      # exec ip_address, "sudo systemctl restart redis"
+      case name
+      when :host01
+        # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
+        # exec ip_address, "sudo systemctl restart redis"
+      else
+        # exec ip_address, "sudo systemctl stop redis-server"
+      end
 
       # sidekiq
-      # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
-      # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
-      # exec ip_address, "sudo systemctl start isutrain-sidekiq.service"
-      # exec ip_address, "sudo systemctl status isutrain-sidekiq.service"
+      case name
+      when :host01
+        # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
+        # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
+        # exec ip_address, "sudo systemctl start isutrain-sidekiq.service"
+        # exec ip_address, "sudo systemctl status isutrain-sidekiq.service"
+      else
+        # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
+      end
 
       # docker-compose
-      # exec ip_address, "docker-compose -f webapp/docker-compose.yml -f webapp/docker-compose.ruby.yml down"
-      # exec ip_address, "docker-compose -f webapp/docker-compose.yml up -d --build"
+      case name
+      when :host01
+        # exec ip_address, "docker-compose -f webapp/docker-compose.yml -f webapp/docker-compose.ruby.yml down"
+        # exec ip_address, "docker-compose -f webapp/docker-compose.yml up -d --build"
+      else
+        # exec ip_address, "docker-compose -f webapp/docker-compose.yml -f webapp/docker-compose.ruby.yml down"
+      end
 
       puts "[deploy:#{name}] END"
     end
