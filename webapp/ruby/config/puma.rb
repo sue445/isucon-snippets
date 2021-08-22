@@ -6,7 +6,7 @@ port '8000', '0.0.0.0'
 
 threads 0, 16
 
-workers 16
+workers `nproc`.strip.to_i
 
 preload_app!
 
