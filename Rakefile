@@ -63,8 +63,10 @@ namespace :deploy do
         # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
         # exec ip_address, "sudo systemctl restart mysql"
+        # exec ip_address, "sudo systemctl enable mysql"
       else
         # exec ip_address, "sudo systemctl stop mysql"
+        # exec ip_address, "sudo systemctl disable mysql"
       end
 
       # nginx
@@ -74,8 +76,10 @@ namespace :deploy do
         # exec ip_address, "sudo nginx -t"
         # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
         # exec ip_address, "sudo systemctl restart nginx"
+        # exec ip_address, "sudo systemctl enable nginx"
       else
         # exec ip_address, "sudo systemctl stop nginx"
+        # exec ip_address, "sudo systemctl disable nginx"
       end
 
       # app
@@ -89,8 +93,10 @@ namespace :deploy do
         # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
         # exec ip_address, "sudo systemctl start #{APP_SERVICE_NAME}"
         # exec ip_address, "sudo systemctl status #{APP_SERVICE_NAME}"
+        # exec ip_address, "sudo systemctl enable #{APP_SERVICE_NAME}"
       else
         # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
+        # exec ip_address, "sudo systemctl disable #{APP_SERVICE_NAME}"
       end
 
       # exec ip_address, "sudo rm -f /tmp/sql.log"
@@ -101,8 +107,10 @@ namespace :deploy do
       when :host01
         # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
         # exec ip_address, "sudo systemctl restart memcached"
+        # exec ip_address, "sudo systemctl enable memcached"
       else
         # exec ip_address, "sudo systemctl stop memcached"
+        # exec ip_address, "sudo systemctl disable memcached"
       end
 
       # redis
@@ -110,8 +118,10 @@ namespace :deploy do
       when :host01
         # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
         # exec ip_address, "sudo systemctl restart redis"
+        # exec ip_address, "sudo systemctl enable redis"
       else
         # exec ip_address, "sudo systemctl stop redis-server"
+        # exec ip_address, "sudo systemctl disable redis-server"
       end
 
       # sidekiq
@@ -121,8 +131,10 @@ namespace :deploy do
         # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
         # exec ip_address, "sudo systemctl start isutrain-sidekiq.service"
         # exec ip_address, "sudo systemctl status isutrain-sidekiq.service"
+        # exec ip_address, "sudo systemctl enable isutrain-sidekiq.service"
       else
         # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
+        # exec ip_address, "sudo systemctl disable isutrain-sidekiq.service"
       end
 
       # docker-compose
