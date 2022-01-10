@@ -34,3 +34,5 @@ end
 wait_for_less_busy_worker 0.005
 
 nakayoshi_fork true
+
+activate_control_app "tcp://127.0.0.1:9293", { auth_token: 'datadog' }
