@@ -51,7 +51,13 @@ namespace :deploy do
       exec ip_address, "sudo systemctl daemon-reload"
 
       # TODO: 終了10分前にdisableすること！！！！！！
-      exec ip_address, "sudo systemctl restart newrelic-infra"
+      exec ip_address, "sudo systemctl restart datadog-agent"
+      # exec ip_address, "sudo systemctl disable datadog-agent"
+      # exec ip_address, "sudo systemctl stop datadog-agent"
+      # exec ip_address, "sudo systemctl enable datadog-agent"
+      # exec ip_address, "sudo systemctl start datadog-agent"
+
+      # exec ip_address, "sudo systemctl restart newrelic-infra"
       # exec ip_address, "sudo systemctl disable newrelic-infra"
       # exec ip_address, "sudo systemctl stop newrelic-infra"
       # exec ip_address, "sudo systemctl enable newrelic-infra"
@@ -88,6 +94,7 @@ namespace :deploy do
         # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local path 'vendor/bundle'", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} config set --local without development test", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
 
         # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
