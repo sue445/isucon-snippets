@@ -8,6 +8,8 @@
 # Usage
 # * rake
 
+require "json"
+
 # デプロイ先のサーバ
 HOSTS = {
   host01: "",
@@ -36,6 +38,10 @@ def exec(ip_address, command, cwd: CURRENT_DIR)
   sh %Q(ssh isucon@#{ip_address} 'cd #{cwd} && #{command}')
 end
 
+def current_branch
+  @current_branch ||= `git branch | grep '* '`.gsub(/^\*/, "").strip
+end
+
 namespace :deploy do
   HOSTS.each do |name, ip_address|
     desc "Deploy to #{name}"
@@ -43,7 +49,9 @@ namespace :deploy do
       puts "[deploy:#{name}] START"
 
       # common
-      exec ip_address, "git pull --ff"
+      exec ip_address, "git fetch"
+      exec ip_address, "git checkout #{current_branch}"
+      exec ip_address, "git reset --hard origin/#{current_branch}" # force push対策
 
       exec ip_address, "sudo cp infra/systemd/#{APP_SERVICE_NAME} /etc/systemd/system/#{APP_SERVICE_NAME}"
 
@@ -192,6 +200,14 @@ task :record do
   sh "git push --tags"
 
   sh "gh issue comment --repo #{GITHUB_REPO} #{GITHUB_ISSUE_ID} --body '#{message}'"
+
+  # mainブランチやmasterブランチ以外であればPRであるとみなしてPRにもコメントする
+  unless %w(main master).include?(current_branch)
+    res = JSON.parse(`gh pr list --repo #{GITHUB_REPO} --head #{current_branch} --json number`)
+    unless res.empty?
+      sh "gh pr comment --repo #{GITHUB_REPO} #{res[0]["number"]} --body '#{message}'"
+    end
+  end
 end
 
 task :all => [:setup, :deploy, :initialize, :record]
