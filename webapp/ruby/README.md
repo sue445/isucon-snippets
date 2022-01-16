@@ -1,7 +1,7 @@
 # Ruby実装のスニペット
 ## 脳死で書くGemfile
 ```ruby
-gem "newrelic_rpm"
+gem "ddtrace"
 gem "oj"
 gem "parallel"
 gem "puma_worker_killer", require: false
@@ -9,6 +9,7 @@ gem "sentry-ruby"
 gem "stackprof"
 
 # 必要に応じて使う
+# gem "newrelic_rpm"
 # gem "connection_pool"
 # gem "dalli"
 # gem "redis"

@@ -2,8 +2,9 @@
 require "sentry-ruby"
 require "stackprof"
 require "sinatra"
+require "ddtrace"
 
-require_relative "./nr_mysql2_client"
+# require_relative "./nr_mysql2_client"
 
 Sentry.init do |config|
   config.enabled_environments = %w[production development]
@@ -31,8 +32,26 @@ def enabled_stackprof_path?(env)
   false
 end
 
-# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsとStackProf::Middlewareが適用されるようにする
+Datadog.configure do |c|
+  app_name = "isucon"
+
+  c.tracer.enabled = true
+  c.analytics_enabled = true
+  c.env = ENV["RACK_ENV"]
+  c.service = app_name
+  c.tags = { app: app_name }
+
+  c.use :sinatra, service_name: app_name + "-sinatra"
+  c.use :mysql2,  service_name: app_name + "-mysql2"
+  c.use :http,    service_name: app_name + "-http", split_by_domain: true
+
+  # c.use :redis, service_name: app_name + "-redis"
+end
+
+# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
 class Sinatra::Base
+  register Datadog::Contrib::Sinatra::Tracer
+
   use Sentry::Rack::CaptureExceptions
 
   use StackProf::Middleware,
@@ -45,15 +64,15 @@ class Sinatra::Base
       enabled: -> (env) { enabled_stackprof_path?(env) }
 end
 
-module Mysql2ClientQueryWithNewRelic
-  def query(sql, *args)
-    NRMysql2Client.with_newrelic(sql) do
-      super
-    end
-  end
-end
-
-# アプリケーションコードを書き換えるのが面倒なのでファイルがrequireされた時点でMysql2::ClientでNewRelicが使われるようにする
-class Mysql2::Client
-  prepend Mysql2ClientQueryWithNewRelic
-end
+# module Mysql2ClientQueryWithNewRelic
+#   def query(sql, *args)
+#     NRMysql2Client.with_newrelic(sql) do
+#       super
+#     end
+#   end
+# end
+#
+# # アプリケーションコードを書き換えるのが面倒なのでファイルがrequireされた時点でMysql2::ClientでNewRelicが使われるようにする
+# class Mysql2::Client
+#   prepend Mysql2ClientQueryWithNewRelic
+# end
