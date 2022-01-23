@@ -4,8 +4,6 @@ require "stackprof"
 require "sinatra"
 require "ddtrace"
 
-# require_relative "./nr_mysql2_client"
-
 Sentry.init do |config|
   config.enabled_environments = %w[production development]
 end
@@ -63,16 +61,3 @@ class Sinatra::Base
       # 特定のPATHのみstackprofを有効化する
       enabled: -> (env) { enabled_stackprof_path?(env) }
 end
-
-# module Mysql2ClientQueryWithNewRelic
-#   def query(sql, *args)
-#     NRMysql2Client.with_newrelic(sql) do
-#       super
-#     end
-#   end
-# end
-#
-# # アプリケーションコードを書き換えるのが面倒なのでファイルがrequireされた時点でMysql2::ClientでNewRelicが使われるようにする
-# class Mysql2::Client
-#   prepend Mysql2ClientQueryWithNewRelic
-# end
