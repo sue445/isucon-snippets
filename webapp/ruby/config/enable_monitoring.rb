@@ -33,17 +33,16 @@ end
 Datadog.configure do |c|
   app_name = "isucon"
 
-  c.tracer.enabled = true
-  c.analytics_enabled = true
-  c.env = ENV["RACK_ENV"]
+  c.tracer enabled: true, env: ENV["RACK_ENV"], tags: { app: app_name }
   c.service = app_name
-  c.tags = { app: app_name }
+  c.analytics_enabled = true
 
-  c.use :sinatra, service_name: app_name + "-sinatra"
-  c.use :mysql2,  service_name: app_name + "-mysql2"
-  c.use :http,    service_name: app_name + "-http", split_by_domain: true
+  c.use :sinatra, service_name: app_name + "-sinatra", analytics_enabled: true
+  c.use :mysql2,  service_name: app_name + "-mysql2",  analytics_enabled: true
+  c.use :http,    service_name: app_name + "-http",    analytics_enabled: true, split_by_domain: true
 
-  # c.use :redis, service_name: app_name + "-redis"
+  # c.use :redis, service_name: app_name + "-redis", analytics_enabled: true
+  # c.use :sidekiq, service_name: app_name + '-sidekiq', analytics_enabled: true, client_service_name: app_name + '-sidekiq-client'
 end
 
 # NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
