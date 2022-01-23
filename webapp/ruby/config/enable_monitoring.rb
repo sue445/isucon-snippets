@@ -1,4 +1,4 @@
-# NewRelic, Sentry, stackprofの一括有効＆一括無効を1ファイルのみで行うためのファイル
+# ddtrace, Sentry, stackprofの一括有効＆一括無効を1ファイルのみで行うためのファイル
 require "sentry-ruby"
 require "stackprof"
 require "sinatra"
