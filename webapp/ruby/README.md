@@ -22,6 +22,10 @@ require_relative "./config/sentry_methods"
 
 # TODO: 終了直前にコメントアウトする
 require_relative "./config/enable_monitoring"
+
+class App < Sinatra::Base
+  # Add this
+  include SentryMethods
 ```
 
 ## Dummy app
