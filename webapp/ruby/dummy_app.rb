@@ -1,5 +1,6 @@
 require "sinatra"
 require "dotenv"
+require "mysql2"
 
 Dotenv.load
 

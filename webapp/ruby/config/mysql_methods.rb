@@ -13,13 +13,7 @@ module MysqlMethods
     # TODO: mysqlやmariadbのserviceファイルでPrivateTmpを無効化しないと/tmpにファイルが出力できない
     dist_file = File.join("/tmp", "#{SecureRandom.uuid}.csv")
 
-    if defined?(::NRMysql2Client)
-      NRMysql2Client.with_newrelic(sql) do
-        create_csv_file_from_mysql(sql, dist_file: dist_file, quote: quote, suffix_sql: suffix_sql)
-      end
-    else
-      create_csv_file_from_mysql(sql, dist_file: dist_file, quote: quote, suffix_sql: suffix_sql)
-    end
+    create_csv_file_from_mysql(sql, dist_file: dist_file, quote: quote, suffix_sql: suffix_sql)
 
     # DBサーバに出力されているのでscpでローカルに転送する
     # TODO: scpするにはdbサーバのauthorized_keysにAPの公開鍵が登録されている必要がある

@@ -2,6 +2,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.1.9)
+    ddtrace (0.54.2)
+      debase-ruby_core_source (<= 0.10.14)
+      msgpack
+    debase-ruby_core_source (0.10.14)
     diff-lcs (1.4.4)
     dotenv (2.7.6)
     faraday (1.7.0)
@@ -24,11 +28,11 @@ GEM
     faraday-patron (1.0.0)
     faraday-rack (1.0.0)
     foreman (0.87.2)
+    msgpack (1.4.4)
     multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
-    newrelic_rpm (7.2.0)
     nio4r (2.5.8)
     puma (5.4.0)
       nio4r (~> 2.0)
@@ -71,10 +75,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ddtrace
   dotenv
   foreman
   mysql2
-  newrelic_rpm
   puma
   rspec
   rspec-its

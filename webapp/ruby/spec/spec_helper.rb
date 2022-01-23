@@ -1,5 +1,4 @@
 require_relative "../config/hash_group_by_prefix"
-require_relative "../config/nr_mysql2_client"
 require_relative "../config/sentry_methods"
 
 require "rspec/its"

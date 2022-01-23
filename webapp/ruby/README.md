@@ -9,7 +9,6 @@ gem "sentry-ruby"
 gem "stackprof"
 
 # 必要に応じて使う
-# gem "newrelic_rpm"
 # gem "connection_pool"
 # gem "dalli"
 # gem "redis"
