@@ -1,8 +1,12 @@
 require_relative "../config/hash_group_by_prefix"
 require_relative "../config/sentry_methods"
+require_relative "../dummy_app"
 
 require "rspec/its"
 require "sentry-ruby"
+require "rack/test"
+
+ENV["RACK_ENV"] = "test"
 
 Sentry.init
 
@@ -105,4 +109,10 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  config.include Rack::Test::Methods
+end
+
+def app
+  App
 end
