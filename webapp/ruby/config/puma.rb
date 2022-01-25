@@ -1,16 +1,35 @@
 # ref. https://github.com/puma/puma/blob/master/lib/puma/dsl.rb
 
-environment "production"
+# environments
+# * RACK_ENV
+# * PUMA_PORT
+# * PUMA_WORKERS
+# * PUMA_THREADS_MIN
+# * PUMA_THREADS_MAX
 
-port '8000', '0.0.0.0'
+require "etc"
 
-threads 0, 16
+environment(ENV.fetch("RACK_ENV", "production"))
 
-workers `nproc`.strip.to_i
+port(ENV.fetch("PUMA_PORT", 8000).to_i, "0.0.0.0")
+
+# c.f.https://zenn.dev/rosylilly/articles/202201-config-turn
+puma_workers = ENV.fetch("PUMA_WORKERS", (Etc.nprocessors * 1.5).floor)
+workers(puma_workers)
+
+threads_min = ENV.fetch("PUMA_THREADS_MIN", 1).to_i
+threads_max = ENV.fetch("PUMA_THREADS_MAX", threads_min).to_i
+threads(threads_min, threads_max)
 
 preload_app!
 
-log_requests false
+log_requests true
+
+# for puma 5+
+# Recommended 0.001~0.010(default 0.005)
+wait_for_less_busy_worker 0.005
+
+nakayoshi_fork true
 
 before_fork do
   require "puma_worker_killer"
@@ -35,4 +54,4 @@ wait_for_less_busy_worker 0.005
 
 nakayoshi_fork true
 
-activate_control_app "tcp://127.0.0.1:9293", { auth_token: 'datadog' }
+activate_control_app "tcp://127.0.0.1:9293", { auth_token: "datadog" }
