@@ -6,6 +6,7 @@
 # * PUMA_WORKERS
 # * PUMA_THREADS_MIN
 # * PUMA_THREADS_MAX
+# * PUMA_LOGGING
 
 require "etc"
 
@@ -23,7 +24,8 @@ threads(threads_min, threads_max)
 
 preload_app!
 
-log_requests true
+puma_logging = ENV.fetch("PUMA_LOGGING", true) == true
+log_requests(puma_logging)
 
 # for puma 5+
 # Recommended 0.001~0.010(default 0.005)
