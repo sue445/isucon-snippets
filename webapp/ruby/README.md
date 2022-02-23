@@ -8,6 +8,10 @@ gem "puma_worker_killer", require: false
 gem "sentry-ruby"
 gem "stackprof"
 
+group :development do
+  gem "rubocop-isucon", github: "sue445/rubocop-isucon"
+end
+
 # 必要に応じて使う
 # gem "connection_pool"
 # gem "dalli"
