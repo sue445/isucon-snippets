@@ -57,6 +57,19 @@ end
 
 ::Mysql2::Client.prepend(DatadogMysql2RawQuerySenderPatch)
 
+# Datadogに `POST /api/condition/:jia_isu_uuid` のようなsinatraで定義してるaction名で送信するためのパッチ
+module DatadogSinatraRequestNamePatch
+  def route_eval
+    # NOTE: sinatraのaction内で @datadog_route を定義することでDatadog上で表示する時のresource名を上書きすることができる
+    # c.f. https://github.com/DataDog/dd-trace-rb/blob/v0.54.2/lib/ddtrace/contrib/sinatra/tracer.rb#L112
+    @datadog_route = request.env["sinatra.route"].split(" ").last
+
+    super
+  end
+end
+
+::Sinatra::Base.prepend(DatadogSinatraRequestNamePatch)
+
 # NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
 class Sinatra::Base
   register Datadog::Contrib::Sinatra::Tracer
