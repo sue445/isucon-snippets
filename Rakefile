@@ -199,10 +199,11 @@ task :record do
   sh "git tag -a #{current_tag} -m 'Release #{current_tag}'"
   sh "git push --tags"
 
-  sh "gh issue comment --repo #{GITHUB_REPO} #{GITHUB_ISSUE_ID} --body '#{message}'"
-
-  # mainブランチやmasterブランチ以外であればPRであるとみなしてPRにもコメントする
-  unless %w(main master).include?(current_branch)
+  if %w(main master).include?(current_branch)
+    # issueにコメントするのはmainブランチやmasterブランチの時だけ
+    sh "gh issue comment --repo #{GITHUB_REPO} #{GITHUB_ISSUE_ID} --body '#{message}'"
+  else
+    # mainブランチやmasterブランチ以外であればPRであるとみなしてPRにもコメントする
     res = JSON.parse(`gh pr list --repo #{GITHUB_REPO} --head #{current_branch} --json number`)
     unless res.empty?
       sh "gh pr comment --repo #{GITHUB_REPO} #{res[0]["number"]} --body '#{message}'"
