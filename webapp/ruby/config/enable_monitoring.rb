@@ -45,6 +45,18 @@ Datadog.configure do |c|
   # c.use :sidekiq, service_name: app_name + '-sidekiq', analytics_enabled: true, client_service_name: app_name + '-sidekiq-client'
 end
 
+# Datadog上だと生クエリが見れないため別tagとして送信するためのパッチ
+module DatadogMysql2RawQuerySenderPatch
+  def _query(sql, options = {})
+    span = ::Datadog.tracer.active_span
+    span.set_tag("sql.raw_query", sql) if span
+
+    super(sql, options)
+  end
+end
+
+::Mysql2::Client.prepend(DatadogMysql2RawQuerySenderPatch)
+
 # NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
 class Sinatra::Base
   register Datadog::Contrib::Sinatra::Tracer
