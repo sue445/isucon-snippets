@@ -2,8 +2,9 @@ GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.1.9)
-    ddtrace (0.54.2)
+    ddtrace (1.0.0.beta1)
       debase-ruby_core_source (<= 0.10.14)
+      libddwaf (~> 1.0.14.2.0.a)
       msgpack
     debase-ruby_core_source (0.10.14)
     diff-lcs (1.4.4)
@@ -31,7 +32,9 @@ GEM
     foreman (0.87.2)
     get_process_mem (0.2.7)
       ffi (~> 1.0)
-    msgpack (1.4.4)
+    libddwaf (1.0.14.2.0.beta1)
+      ffi (~> 1.0)
+    msgpack (1.4.5)
     multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
@@ -83,7 +86,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ddtrace
+  ddtrace (>= 1.0.0.beta1)
   dotenv
   foreman
   mysql2

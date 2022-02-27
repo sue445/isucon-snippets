@@ -30,29 +30,24 @@ def enabled_stackprof_path?(env)
   false
 end
 
-Datadog.configure do |c|
-  app_name = "isucon"
+# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
+class Sinatra::Base
+  use Sentry::Rack::CaptureExceptions
 
-  c.tracer enabled: true, env: ENV["RACK_ENV"], tags: { app: app_name }
-  c.service = app_name
-  c.analytics_enabled = true
-
-  c.use :sinatra, service_name: app_name + "-sinatra", analytics_enabled: true
-  c.use :mysql2,  service_name: app_name + "-mysql2",  analytics_enabled: true
-  c.use :http,    service_name: app_name + "-http",    analytics_enabled: true, split_by_domain: true
-
-  # c.use :redis, service_name: app_name + "-redis", analytics_enabled: true
-  # c.use :sidekiq, service_name: app_name + '-sidekiq', analytics_enabled: true, client_service_name: app_name + '-sidekiq-client'
+  use StackProf::Middleware,
+      mode: :cpu,
+      interval: 1000,
+      raw: true,
+      save_every: 100,
+      path: "tmp/stackprof/",
+      # 特定のPATHのみstackprofを有効化する
+      enabled: -> (env) { enabled_stackprof_path?(env) }
 end
 
-# Datadog上だと生クエリが見れないため別tagとして送信するためのパッチ
-module DatadogMysql2RawQuerySenderPatch
-  def _query(sql, options = {})
-    span = ::Datadog.tracer.active_span
-    span.set_tag("sql.raw_query", sql) if span
-
-    super(sql, options)
-  end
+if DDTrace::VERSION::MAJOR >= 1
+  require_relative "./ddtrace_v1"
+else
+  require_relative "./ddtrace_v0"
 end
 
 ::Mysql2::Client.prepend(DatadogMysql2RawQuerySenderPatch)
@@ -69,19 +64,3 @@ module DatadogSinatraRouteingPathNamePatch
 end
 
 ::Sinatra::Base.prepend(DatadogSinatraRouteingPathNamePatch)
-
-# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
-class Sinatra::Base
-  register Datadog::Contrib::Sinatra::Tracer
-
-  use Sentry::Rack::CaptureExceptions
-
-  use StackProf::Middleware,
-      mode: :cpu,
-      interval: 1000,
-      raw: true,
-      save_every: 100,
-      path: "tmp/stackprof/",
-      # 特定のPATHのみstackprofを有効化する
-      enabled: -> (env) { enabled_stackprof_path?(env) }
-end
