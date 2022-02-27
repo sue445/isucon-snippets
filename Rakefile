@@ -142,13 +142,13 @@ namespace :deploy do
       case name
       when :host01
         # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
-        # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
-        # exec ip_address, "sudo systemctl start isutrain-sidekiq.service"
-        # exec ip_address, "sudo systemctl status isutrain-sidekiq.service"
-        # exec ip_address, "sudo systemctl enable isutrain-sidekiq.service"
+        # exec ip_address, "sudo systemctl stop isucon-sidekiq.service"
+        # exec ip_address, "sudo systemctl start isucon-sidekiq.service"
+        # exec ip_address, "sudo systemctl status isucon-sidekiq.service"
+        # exec ip_address, "sudo systemctl enable isucon-sidekiq.service"
       else
-        # exec ip_address, "sudo systemctl stop isutrain-sidekiq.service"
-        # exec ip_address, "sudo systemctl disable isutrain-sidekiq.service"
+        # exec ip_address, "sudo systemctl stop isucon-sidekiq.service"
+        # exec ip_address, "sudo systemctl disable isucon-sidekiq.service"
       end
 
       # docker-compose
