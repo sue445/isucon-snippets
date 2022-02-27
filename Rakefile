@@ -54,6 +54,7 @@ namespace :deploy do
       exec ip_address, "git reset --hard origin/#{current_branch}" # force push対策
 
       exec ip_address, "sudo cp infra/systemd/#{APP_SERVICE_NAME} /etc/systemd/system/#{APP_SERVICE_NAME}"
+      # exec ip_address, "sudo cp infra/systemd/isucon-sidekiq.service /etc/systemd/system/isucon-sidekiq.service"
 
       # systemdの更新後にdaemon-reloadする
       exec ip_address, "sudo systemctl daemon-reload"
