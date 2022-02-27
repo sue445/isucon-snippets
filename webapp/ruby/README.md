@@ -17,6 +17,7 @@ end
 # gem "dalli"
 # gem "redis"
 # gem "sidekiq"
+# gem "sidekiq-cron"
 ```
 
 ## 脳死で書くrequire
