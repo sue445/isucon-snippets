@@ -131,8 +131,8 @@ namespace :deploy do
       case name
       when :host01
         # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
-        # exec ip_address, "sudo systemctl restart redis"
-        # exec ip_address, "sudo systemctl enable redis"
+        # exec ip_address, "sudo systemctl restart redis-server"
+        # exec ip_address, "sudo systemctl enable redis-server"
       else
         # exec ip_address, "sudo systemctl stop redis-server"
         # exec ip_address, "sudo systemctl disable redis-server"
