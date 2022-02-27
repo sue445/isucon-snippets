@@ -30,7 +30,11 @@ def enabled_stackprof_path?(env)
   false
 end
 
-require_relative "./ddtrace_v0"
+if DDTrace::VERSION::MAJOR >= 1
+  require_relative "./ddtrace_v1"
+else
+  require_relative "./ddtrace_v0"
+end
 
 ::Mysql2::Client.prepend(DatadogMysql2RawQuerySenderPatch)
 

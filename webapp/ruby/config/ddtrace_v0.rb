@@ -1,3 +1,5 @@
+require "ddtrace"
+
 Datadog.configure do |c|
   app_name = "isucon"
 
