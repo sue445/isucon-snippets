@@ -30,6 +30,20 @@ def enabled_stackprof_path?(env)
   false
 end
 
+# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
+class Sinatra::Base
+  use Sentry::Rack::CaptureExceptions
+
+  use StackProf::Middleware,
+      mode: :cpu,
+      interval: 1000,
+      raw: true,
+      save_every: 100,
+      path: "tmp/stackprof/",
+      # 特定のPATHのみstackprofを有効化する
+      enabled: -> (env) { enabled_stackprof_path?(env) }
+end
+
 if DDTrace::VERSION::MAJOR >= 1
   require_relative "./ddtrace_v1"
 else
@@ -50,17 +64,3 @@ module DatadogSinatraRouteingPathNamePatch
 end
 
 ::Sinatra::Base.prepend(DatadogSinatraRouteingPathNamePatch)
-
-# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
-class Sinatra::Base
-  use Sentry::Rack::CaptureExceptions
-
-  use StackProf::Middleware,
-      mode: :cpu,
-      interval: 1000,
-      raw: true,
-      save_every: 100,
-      path: "tmp/stackprof/",
-      # 特定のPATHのみstackprofを有効化する
-      enabled: -> (env) { enabled_stackprof_path?(env) }
-end
