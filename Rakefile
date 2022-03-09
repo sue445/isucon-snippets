@@ -38,6 +38,20 @@ def exec(ip_address, command, cwd: CURRENT_DIR)
   sh %Q(ssh isucon@#{ip_address} 'cd #{cwd} && #{command}')
 end
 
+def exec_service(ip_address, service:, enabled:, status: true)
+  if enabled
+    exec ip_address, "sudo systemctl restart #{service}"
+    exec ip_address, "sudo systemctl enable #{service}"
+
+    if status
+      exec ip_address, "sudo systemctl status #{service}"
+    end
+  else
+    exec ip_address, "sudo systemctl stop #{service}"
+    exec ip_address, "sudo systemctl disable #{service}"
+  end
+end
+
 def current_branch
   @current_branch ||= `git branch | grep '* '`.gsub(/^\*/, "").strip
 end
@@ -60,28 +74,16 @@ namespace :deploy do
       exec ip_address, "sudo systemctl daemon-reload"
 
       # TODO: 終了10分前にdisableすること！！！！！！
-      exec ip_address, "sudo systemctl restart datadog-agent"
-      # exec ip_address, "sudo systemctl disable datadog-agent"
-      # exec ip_address, "sudo systemctl stop datadog-agent"
-      # exec ip_address, "sudo systemctl enable datadog-agent"
-      # exec ip_address, "sudo systemctl start datadog-agent"
-
-      # exec ip_address, "sudo systemctl restart newrelic-infra"
-      # exec ip_address, "sudo systemctl disable newrelic-infra"
-      # exec ip_address, "sudo systemctl stop newrelic-infra"
-      # exec ip_address, "sudo systemctl enable newrelic-infra"
-      # exec ip_address, "sudo systemctl start newrelic-infra"
+      exec_service ip_address, service: "datadog-agent", enabled: true
 
       # mysql
       case name
       when :host01
         # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
-        # exec ip_address, "sudo systemctl restart mysql"
-        # exec ip_address, "sudo systemctl enable mysql"
+        # exec_service ip_address, service: "mysql", enabled: true
       else
-        # exec ip_address, "sudo systemctl stop mysql"
-        # exec ip_address, "sudo systemctl disable mysql"
+        # exec_service ip_address, service: "mysql", enabled: false
       end
 
       # nginx
@@ -90,11 +92,9 @@ namespace :deploy do
         # exec ip_address, "sudo cp infra/nginx/nginx.conf /etc/nginx/nginx.conf"
         # exec ip_address, "sudo nginx -t"
         # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
-        # exec ip_address, "sudo systemctl restart nginx"
-        # exec ip_address, "sudo systemctl enable nginx"
+        # exec_service ip_address, service: "nginx", enabled: true
       else
-        # exec ip_address, "sudo systemctl stop nginx"
-        # exec ip_address, "sudo systemctl disable nginx"
+        # exec_service ip_address, service: "nginx", enabled: false
       end
 
       # app
@@ -105,13 +105,9 @@ namespace :deploy do
         # exec ip_address, "#{BUNDLE} config set --local without development test", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
 
-        # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
-        # exec ip_address, "sudo systemctl start #{APP_SERVICE_NAME}"
-        # exec ip_address, "sudo systemctl status #{APP_SERVICE_NAME}"
-        # exec ip_address, "sudo systemctl enable #{APP_SERVICE_NAME}"
+        # exec_service ip_address, service: APP_SERVICE_NAME, enabled: true
       else
-        # exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
-        # exec ip_address, "sudo systemctl disable #{APP_SERVICE_NAME}"
+        # exec_service ip_address, service: APP_SERVICE_NAME, enabled: false
       end
 
       # exec ip_address, "sudo rm -f /tmp/sql.log"
@@ -121,35 +117,31 @@ namespace :deploy do
       case name
       when :host01
         # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
-        # exec ip_address, "sudo systemctl restart memcached"
-        # exec ip_address, "sudo systemctl enable memcached"
+        # exec_service ip_address, service: "memcached", enabled: true
       else
-        # exec ip_address, "sudo systemctl stop memcached"
-        # exec ip_address, "sudo systemctl disable memcached"
+        # exec_service ip_address, service: "memcached", enabled: false
       end
 
       # redis
       case name
       when :host01
         # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
-        # exec ip_address, "sudo systemctl restart redis-server"
-        # exec ip_address, "sudo systemctl enable redis-server"
+        # exec_service ip_address, service: "redis-server", enabled: true
       else
-        # exec ip_address, "sudo systemctl stop redis-server"
-        # exec ip_address, "sudo systemctl disable redis-server"
+        # exec_service ip_address, service: "redis-server", enabled: false
       end
 
       # sidekiq
       case name
       when :host01
-        # exec ip_address, "#{BUNDLE} install --path vendor/bundle --jobs $(nproc)", cwd: "#{CURRENT_DIR}/webapp/ruby"
-        # exec ip_address, "sudo systemctl stop isucon-sidekiq.service"
-        # exec ip_address, "sudo systemctl start isucon-sidekiq.service"
-        # exec ip_address, "sudo systemctl status isucon-sidekiq.service"
-        # exec ip_address, "sudo systemctl enable isucon-sidekiq.service"
+        # exec ip_address, "#{BUNDLE} config set --local path 'vendor/bundle'", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} config set --local without development test", cwd: RUBY_APP_DIR
+        # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
+
+        # exec_service ip_address, service: "isucon-sidekiq", enabled: true
       else
-        # exec ip_address, "sudo systemctl stop isucon-sidekiq.service"
-        # exec ip_address, "sudo systemctl disable isucon-sidekiq.service"
+        # exec_service ip_address, service: "isucon-sidekiq", enabled: false
       end
 
       # docker-compose
