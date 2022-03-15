@@ -3,11 +3,18 @@ require "ddtrace"
 Datadog.configure do |c|
   app_name = "isucon"
 
+  # Global settings
+  c.runtime_metrics.enabled = true
   c.service = app_name
   c.env = ENV["RACK_ENV"]
   c.tags = { app: app_name }
-  c.tracing.analytics.enabled = true
 
+  # Tracing settings
+  c.tracing.analytics.enabled = true
+  c.tracing.partial_flush.enabled = true
+  # c.tracing.sampler = Datadog::AllSampler.new
+
+  # Instrumentation
   c.tracing.instrument :sinatra, service_name: app_name + "-sinatra", analytics_enabled: true
   c.tracing.instrument :mysql2,  service_name: app_name + "-mysql2",  analytics_enabled: true
   c.tracing.instrument :http,    service_name: app_name + "-http",    analytics_enabled: true, split_by_domain: true
