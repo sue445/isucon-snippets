@@ -127,6 +127,7 @@ namespace :deploy do
       when :host01
         # exec ip_address, "sudo cp infra/redis/redis.conf /etc/redis/redis.conf"
         # exec_service ip_address, service: "redis-server", enabled: true
+        # exec ip_address, "redis-cli flushall"
       else
         # exec_service ip_address, service: "redis-server", enabled: false
       end
