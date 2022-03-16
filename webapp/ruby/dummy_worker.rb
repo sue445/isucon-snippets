@@ -8,6 +8,8 @@ class DummyWorker
   include SentryMethods
   # include IsuconHelper
 
+  sidekiq_options queue: "default"
+
   def perform(*args)
     with_sentry do
       # do something
