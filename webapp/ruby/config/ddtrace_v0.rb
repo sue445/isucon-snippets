@@ -36,3 +36,12 @@ end
 class Sinatra::Base
   register Datadog::Contrib::Sinatra::Tracer
 end
+
+# Sidekiq::Worker#performにモンキーパッチを仕込む
+module DatadogSidekiqWorkerPatch
+  def perform(*)
+    ::Datadog.tracer.trace("sidekiq.perform", service: "isucon-sidekiq-worker", resource: self.class.to_s) do
+      super
+    end
+  end
+end
