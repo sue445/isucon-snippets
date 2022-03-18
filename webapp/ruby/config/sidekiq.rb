@@ -1,7 +1,7 @@
 require "sidekiq"
 # require_relative "../workers/dummy_worker"
 
-# NOTE: 無効化したい場合はコメントアウトする
+# TODO: workerクラスをrequireした後にrequireすること
 require_relative "./enable_monitoring"
 
 sidekiq_redis_url = "redis://#{ENV["REDIS_HOST"]}:6379/0"
