@@ -3,6 +3,7 @@ require "sentry-ruby"
 require "stackprof"
 require "sinatra"
 require "ddtrace"
+require "mysql2"
 
 Sentry.init do |config|
   config.enabled_environments = %w[production development]
