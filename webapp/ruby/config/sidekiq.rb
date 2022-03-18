@@ -1,6 +1,7 @@
 require "sidekiq"
-# require_relative "../trend_update_worker"
+# require_relative "../workers/dummy_worker"
 
+# NOTE: 無効化したい場合はコメントアウトする
 require_relative "./enable_monitoring"
 
 sidekiq_redis_url = "redis://#{ENV["REDIS_HOST"]}:6379/0"
