@@ -50,10 +50,4 @@ before_fork do
   PumaWorkerKiller.start
 end
 
-# for puma 5+
-# Recommended 0.001~0.010(default 0.005)
-wait_for_less_busy_worker 0.005
-
-nakayoshi_fork true
-
 activate_control_app "tcp://127.0.0.1:9293", { auth_token: "datadog" }
