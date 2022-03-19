@@ -1,5 +1,7 @@
 require "ddtrace"
 
+ENV["DD_TRACE_SAMPLE_RATE"] = "1.0"
+
 Datadog.configure do |c|
   app_name = "isucon"
 
@@ -12,7 +14,9 @@ Datadog.configure do |c|
   # Tracing settings
   c.tracing.analytics.enabled = true
   c.tracing.partial_flush.enabled = true
-  # c.tracing.sampler = Datadog::AllSampler.new
+
+  # FIXME: samplerがnilなのでDD_TRACE_SAMPLE_RATEで渡す
+  # c.tracing.sampler.default_rate = 1.0
 
   # Instrumentation
   c.tracing.instrument :sinatra, service_name: app_name + "-sinatra", analytics_enabled: true
@@ -38,12 +42,12 @@ class Sinatra::Base
   register Datadog::Tracing::Contrib::Sinatra::Tracer
 end
 
-
-# Sidekiq::Worker#performにモンキーパッチを仕込む
+# DatadogにWorkerのクラス名を送信するためのモンキーパッチをSidekiq::Worker#performに仕込む
 module DatadogSidekiqWorkerPatch
   def perform(*)
-    ::Datadog::Tracing.trace("sidekiq.perform", service: "isucon-sidekiq-worker", resource: self.class.to_s) do
-      super
-    end
+    trace = ::Datadog::Tracing.active_trace
+    trace.resource = self.class.to_s if trace
+
+    super
   end
 end

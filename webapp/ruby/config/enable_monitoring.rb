@@ -4,6 +4,7 @@ require "stackprof"
 require "sinatra"
 require "ddtrace"
 require "mysql2"
+require "sidekiq"
 
 Sentry.init do |config|
   config.enabled_environments = %w[production development]

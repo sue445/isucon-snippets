@@ -12,7 +12,7 @@ Datadog.configure do |c|
   c.analytics.enabled = true
   c.tracer.partial_flush.enabled = true
   c.tracer enabled: true, env: ENV["RACK_ENV"], tags: { app: app_name }
-  c.tracer.sampler = Datadog::AllSampler.new
+  c.tracer.sampler.default_rate = 1.0
 
   c.use :sinatra, service_name: app_name + "-sinatra", analytics_enabled: true
   c.use :mysql2,  service_name: app_name + "-mysql2",  analytics_enabled: true
@@ -37,11 +37,12 @@ class Sinatra::Base
   register Datadog::Contrib::Sinatra::Tracer
 end
 
-# Sidekiq::Worker#performにモンキーパッチを仕込む
+# DatadogにWorkerのクラス名を送信するためのモンキーパッチをSidekiq::Worker#performに仕込む
 module DatadogSidekiqWorkerPatch
   def perform(*)
-    ::Datadog.tracer.trace("sidekiq.perform", service: "isucon-sidekiq-worker", resource: self.class.to_s) do
-      super
-    end
+    trace = ::Datadog.tracer.active_trace
+    trace.resource = self.class.to_s if trace
+
+    super
   end
 end
