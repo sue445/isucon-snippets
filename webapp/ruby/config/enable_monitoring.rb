@@ -67,7 +67,7 @@ end
 
 ::Sinatra::Base.prepend(DatadogSinatraRouteingPathNamePatch)
 
-# Sidekiq::Workerをincludeした全workerクラスにモンキーパッチをあてる]
+# Sidekiq::Workerをincludeした全workerクラスにモンキーパッチをあてる
 # NOTE: Sidekiq::Workerがincludeされているかどうかを厳密に調べようとするとインスタンスを生成する必要があって遅くなるため、
 #       Sidekiq::Workerをincludeした時に生成されるクラスメソッド(sidekiq_options)の存在をチェックしている
 sidekiq_worker_classes = ObjectSpace.each_object(Class).select do |klass|
