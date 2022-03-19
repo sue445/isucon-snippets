@@ -33,6 +33,16 @@ class App < Sinatra::Base
   include SentryMethods
 ```
 
+## env.shに追加するやつ
+`PUMA_PORT` は参照実装で使ってるport番号に変える
+
+```
+RUBYOPT="--yjit"
+PUMA_PORT=
+PUMA_THREADS_MIN=16
+PUMA_LOGGING=false
+```
+
 ## Dummy app
 ```bash
 bundle install
