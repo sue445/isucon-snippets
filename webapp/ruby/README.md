@@ -39,7 +39,8 @@ class App < Sinatra::Base
 ```
 RUBYOPT="--yjit"
 PUMA_PORT=
-PUMA_THREADS_MIN=16
+PUMA_THREADS_MIN=5
+PUMA_THREADS_MAX=16
 PUMA_LOGGING=false
 ```
 
