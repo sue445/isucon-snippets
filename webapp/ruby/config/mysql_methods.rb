@@ -1,3 +1,4 @@
+# Rubyからmysqlコマンドをたたくためのメソッド
 require 'securerandom'
 require_relative "./sentry_methods"
 

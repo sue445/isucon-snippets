@@ -1,3 +1,5 @@
+# pumaのいい感じの初期設定
+#
 # ref. https://github.com/puma/puma/blob/master/lib/puma/dsl.rb
 
 # environments

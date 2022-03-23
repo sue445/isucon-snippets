@@ -1,3 +1,4 @@
+# ddtrace v0系用の設定とモンキーパッチ
 require "ddtrace"
 
 Datadog.configure do |c|

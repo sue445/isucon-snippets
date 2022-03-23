@@ -1,3 +1,4 @@
+# Hash#to_jsonの実装をojにするモンキーパッチ
 require "oj"
 
 ::Oj.default_options = { mode: :compat }

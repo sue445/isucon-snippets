@@ -1,3 +1,4 @@
+# Sentryの便利メソッド
 require "sentry-ruby"
 require "open3"
 

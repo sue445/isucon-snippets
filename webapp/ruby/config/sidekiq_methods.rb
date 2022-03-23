@@ -1,3 +1,4 @@
+# sidekiqの便利メソッド
 require "sidekiq/api"
 
 module SidekiqMethods

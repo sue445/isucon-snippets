@@ -1,3 +1,4 @@
+# redisの便利メソッド
 require "redis"
 require "connection_pool"
 require "oj"

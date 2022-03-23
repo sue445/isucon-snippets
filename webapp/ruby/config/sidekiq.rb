@@ -1,3 +1,4 @@
+# sidekiqの設定
 require "sidekiq"
 # require_relative "../workers/dummy_worker"
 

@@ -1,3 +1,4 @@
+# ddtrace v1系用の設定とモンキーパッチ
 require "ddtrace"
 
 ENV["DD_TRACE_SAMPLE_RATE"] = "1.0"
