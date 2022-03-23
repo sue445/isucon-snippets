@@ -1,3 +1,5 @@
+# ISUCON用汎用デプロイスクリプト
+
 # Requirements
 # * ruby
 # * curl
