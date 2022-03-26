@@ -1,7 +1,7 @@
 # Ruby実装のスニペット
 ## 脳死で書くGemfile
 ```ruby
-gem "ddtrace"
+gem "ddtrace", ">= 1.0.0.beta1"
 gem "dogstatsd-ruby"
 gem "oj"
 gem "parallel"
