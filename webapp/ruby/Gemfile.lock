@@ -81,7 +81,6 @@ GEM
       rack (~> 2.2)
       rack-protection (= 2.1.0)
       tilt (~> 2.0)
-    stackprof (0.2.17)
     tilt (2.0.10)
 
 PLATFORMS
@@ -101,7 +100,6 @@ DEPENDENCIES
   rspec-its
   sentry-ruby
   sinatra
-  stackprof
 
 BUNDLED WITH
    2.2.22
