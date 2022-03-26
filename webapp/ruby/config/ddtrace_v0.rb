@@ -1,7 +1,6 @@
 # ddtrace v0系用の設定とモンキーパッチ
 require "datadog/statsd"
 require "ddtrace"
-require "ddtrace/profiling/preload"
 
 Datadog.configure do |c|
   app_name = "isucon"
@@ -26,6 +25,9 @@ Datadog.configure do |c|
   # c.use :redis, service_name: app_name + "-redis", analytics_enabled: true
   # c.use :sidekiq, service_name: app_name + '-sidekiq', analytics_enabled: true, client_service_name: app_name + '-sidekiq-client'
 end
+
+# NOTE: 設定有効後じゃないとpreloadが効かない
+require "ddtrace/profiling/preload"
 
 # Datadog上だと生クエリが見れないため別tagとして送信するためのパッチ
 module DatadogMysql2RawQuerySenderPatch
