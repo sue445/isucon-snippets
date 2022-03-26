@@ -4,12 +4,16 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem "ddtrace", ">= 1.0.0.beta1"
 gem "mysql2"
 gem "puma"
 gem "puma_worker_killer", require: false
-gem "sentry-ruby"
 gem "sinatra"
+
+# profiling and monitoring
+gem "ddtrace", ">= 1.0.0.beta1"
+gem "dogstatsd-ruby"
+gem "google-protobuf", "~> 3.0"
+gem "sentry-ruby"
 gem "stackprof"
 
 group :development do
