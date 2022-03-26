@@ -1,5 +1,7 @@
 # ddtrace v0系用の設定とモンキーパッチ
+require "datadog/statsd"
 require "ddtrace"
+require "ddtrace/profiling/preload"
 
 Datadog.configure do |c|
   app_name = "isucon"
@@ -8,6 +10,8 @@ Datadog.configure do |c|
   c.runtime_metrics.enabled = true
   c.service = app_name
   c.analytics_enabled = true
+  c.profiling.enabled = true
+  c.version = "1.0.3"
 
   # Tracing settings
   c.analytics.enabled = true

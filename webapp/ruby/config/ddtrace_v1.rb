@@ -1,5 +1,7 @@
-# ddtrace v1系用の設定とモンキーパッチ
+# ddtrace v0系用の設定とモンキーパッチ
+require "datadog/statsd"
 require "ddtrace"
+require "datadog/profiling/preload"
 
 ENV["DD_TRACE_SAMPLE_RATE"] = "1.0"
 
