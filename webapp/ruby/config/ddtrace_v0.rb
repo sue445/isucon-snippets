@@ -6,6 +6,7 @@ Datadog.configure do |c|
   app_name = "isucon"
 
   # Global settings
+  c.version = `git rev-parse --short HEAD`.strip
   c.runtime_metrics.enabled = true
   c.service = app_name
   c.analytics_enabled = true
