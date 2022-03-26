@@ -2,6 +2,7 @@
 ## 脳死で書くGemfile
 ```ruby
 gem "ddtrace"
+gem "dogstatsd-ruby"
 gem "oj"
 gem "parallel"
 gem "puma_worker_killer", require: false
