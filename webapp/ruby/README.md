@@ -6,7 +6,6 @@ gem "ddtrace", ">= 1.0.0.beta1"
 gem "dogstatsd-ruby"
 gem "google-protobuf", "~> 3.0"
 gem "sentry-ruby"
-gem "stackprof"
 
 gem "oj"
 gem "parallel"
