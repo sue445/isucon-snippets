@@ -13,7 +13,6 @@ Datadog.configure do |c|
   c.env = ENV["RACK_ENV"]
   c.tags = { app: app_name }
   c.profiling.enabled = true
-  c.version = "1.0.3"
 
   # Tracing settings
   c.tracing.analytics.enabled = true

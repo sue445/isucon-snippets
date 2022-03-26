@@ -10,7 +10,6 @@ Datadog.configure do |c|
   c.service = app_name
   c.analytics_enabled = true
   c.profiling.enabled = true
-  c.version = "1.0.3"
 
   # Tracing settings
   c.analytics.enabled = true
