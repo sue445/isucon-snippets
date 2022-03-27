@@ -8,4 +8,5 @@ Rubyの参照実装に下記をコピーする
 
 * [Rakefile](Rakefile)
 * [infra/](infra/)
+* [webapp/ruby/.rubocop.yml](webapp/ruby/.rubocop.yml)
 * [webapp/ruby/config/](webapp/ruby/config/)
