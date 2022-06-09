@@ -7,8 +7,6 @@ on:
     paths:
       - ".github/workflows/webapp-ruby.yml"
       - "webapp/ruby/**"
-    paths-ignore:
-      - "**.md"
 
   pull_request:
     types:
@@ -18,8 +16,6 @@ on:
     paths:
       - ".github/workflows/webapp-ruby.yml"
       - "webapp/ruby/**"
-    paths-ignore:
-      - "**.md"
 
 defaults:
   run:
