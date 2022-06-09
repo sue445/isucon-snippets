@@ -34,7 +34,11 @@ APP_SERVICE_NAME = "isutrain-ruby.service"
 GITHUB_REPO     = "sue445/isuconXX-qualify"
 GITHUB_ISSUE_ID = 1
 
-BUNDLE = "/home/isucon/local/ruby/bin/bundle"
+RUBY_VERSION_PATH = "#{__dir__}/webapp/ruby/.ruby-version"
+
+ruby_version = File.read(RUBY_VERSION_PATH).strip
+
+BUNDLE = "/home/isucon/local/ruby/versions/#{ruby_version}/bin/bundle"
 
 def exec(ip_address, command, cwd: CURRENT_DIR)
   sh %Q(ssh isucon@#{ip_address} 'cd #{cwd} && #{command}')
