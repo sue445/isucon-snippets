@@ -6,11 +6,13 @@
 ## Usage
 Rubyの参照実装に下記をコピーする
 
-```bash
-./setup.sh /path/to/isucon/dir
-```
-
 * [Rakefile](Rakefile)
 * [infra/](infra/)
 * [webapp/ruby/.rubocop.yml](webapp/ruby/.rubocop.yml)
 * [webapp/ruby/config/](webapp/ruby/config/)
+
+もしくは下記を実行する
+
+```bash
+./setup.sh /path/to/isucon/dir
+```
