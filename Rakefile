@@ -28,6 +28,7 @@ CURRENT_DIR = "/home/isucon/isutrain"
 RUBY_APP_DIR = "/home/isucon/isutrain/webapp/ruby"
 
 # アプリのservice名
+# NOTE: `sudo systemctl list-unit-files --type=service | grep isu` などで調べる
 APP_SERVICE_NAME = "isutrain-ruby.service"
 
 # デプロイを記録するissue
