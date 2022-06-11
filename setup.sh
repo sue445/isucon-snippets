@@ -26,7 +26,7 @@ function copy_to_ruby_dir() {
   if [ $(grep "Appended by sue445/isucon-snippets" ${ruby_dir}/Gemfile | wc -l) == "0" ]; then
     set -x
     echo "" >> ${ruby_dir}/Gemfile
-    cat webapp/ruby/gemfile_patch.rb >> ${ruby_dir}/Gemfile
+    cat webapp/ruby/isucon.gemfile >> ${ruby_dir}/Gemfile
     set +x
   fi
 }
