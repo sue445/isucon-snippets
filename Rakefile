@@ -86,7 +86,7 @@ namespace :deploy do
       # mysql
       case name
       when :host01
-        # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf"
+        # exec ip_address, "sudo cp infra/mysql/isucon.cnf /etc/mysql/conf.d/isucon.cnf"
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
         # exec_service ip_address, service: "mysql", enabled: true
       else
