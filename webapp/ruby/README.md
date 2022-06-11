@@ -17,7 +17,6 @@ end
 
 # 必要に応じて使う
 # gem "connection_pool"
-# gem "dalli"
 # gem "redis"
 # gem "sidekiq"
 # gem "sidekiq-cron"
