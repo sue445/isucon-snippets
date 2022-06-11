@@ -1,3 +1,5 @@
+# Appended by sue445/isucon-snippets
+
 # profiling and monitoring
 gem "ddtrace", ">= 1.0.0.beta1"
 gem "dogstatsd-ruby"
