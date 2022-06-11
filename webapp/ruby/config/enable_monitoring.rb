@@ -9,7 +9,7 @@ Sentry.init do |config|
   config.enabled_environments = %w[production development]
 end
 
-# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsnaなどが適用されるようにする
+# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsなどが適用されるようにする
 class Sinatra::Base
   use Sentry::Rack::CaptureExceptions
 end
