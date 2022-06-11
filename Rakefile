@@ -120,15 +120,6 @@ namespace :deploy do
       # exec ip_address, "sudo rm -f /tmp/sql.log"
       # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
 
-      # memcached
-      case name
-      when :host01
-        # exec ip_address, "sudo cp infra/memcached/memcached.conf /etc/memcached.conf"
-        # exec_service ip_address, service: "memcached", enabled: true
-      else
-        # exec_service ip_address, service: "memcached", enabled: false
-      end
-
       # redis
       case name
       when :host01
