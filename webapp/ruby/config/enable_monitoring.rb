@@ -20,7 +20,7 @@ Datadog.configure do |c|
   app_name = "isucon"
 
   # Global settings
-  c.version = `git rev-parse --short HEAD`.strip
+  c.version = `git rev-parse --short HEAD`.strip # rubocop:disable Isucon/Shell/Backtick 最終的にはファイル自体requireしないので無視する
   c.runtime_metrics.enabled = true
   c.service = app_name
   c.env = ENV["RACK_ENV"]
