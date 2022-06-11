@@ -2,7 +2,7 @@
 ## 脳死で書くGemfile
 ```ruby
 # profiling and monitoring
-gem "ddtrace", ">= 1.0.0.beta1"
+gem "ddtrace", ">= 1.0.0"
 gem "dogstatsd-ruby"
 gem "google-protobuf", "~> 3.0"
 gem "sentry-ruby"
