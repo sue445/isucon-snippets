@@ -12,7 +12,8 @@ gem "parallel"
 gem "puma_worker_killer", require: false
 
 group :development do
-  gem "rubocop-isucon", github: "sue445/rubocop-isucon"
+  gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false
+  gem "rubocop_auto_corrector", require: false
 end
 
 # 必要に応じて使う
