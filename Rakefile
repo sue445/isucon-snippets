@@ -82,6 +82,7 @@ namespace :deploy do
 
       # TODO: 終了10分前にdisableすること！！！！！！
       exec_service ip_address, service: "datadog-agent", enabled: true
+      exec_service ip_address, service: "td-agent", enabled: true
 
       # mysql
       case name
