@@ -3,6 +3,9 @@ require "sentry-ruby"
 require "open3"
 
 module SentryMethods
+  # ブロック内でエラーが起きた時に明示的にSentryにエラーを送信してから再raiseする
+  #
+  # @raise RuntimeError ブロック内で発生したエラー
   def with_sentry
     yield
   rescue => error
