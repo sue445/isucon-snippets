@@ -9,7 +9,7 @@ Sentry.init do |config|
   config.enabled_environments = %w[production development]
 end
 
-# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsなどが適用されるようにする
+# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsが適用されるようにする
 class Sinatra::Base
   use Sentry::Rack::CaptureExceptions
 end
@@ -46,6 +46,11 @@ end
 # NOTE: 設定有効後じゃないとpreloadが効かない
 require "datadog/profiling/preload"
 
+# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動で適用されるようにする
+class Sinatra::Base
+  register Datadog::Tracing::Contrib::Sinatra::Tracer
+end
+
 # Datadog上だと生クエリが見れないため別tagとして送信するためのパッチ
 module DatadogMysql2RawQuerySenderPatch
   def _query(sql, options = {})
@@ -53,21 +58,6 @@ module DatadogMysql2RawQuerySenderPatch
     span.set_tag("sql.raw_query", sql) if span
 
     super(sql, options)
-  end
-end
-
-# NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動で適用されるようにする
-class Sinatra::Base
-  register Datadog::Tracing::Contrib::Sinatra::Tracer
-end
-
-# DatadogにWorkerのクラス名を送信するためのモンキーパッチをSidekiq::Worker#performに仕込む
-module DatadogSidekiqWorkerPatch
-  def perform(*)
-    trace = ::Datadog::Tracing.active_trace
-    trace.resource = self.class.to_s if trace
-
-    super
   end
 end
 
@@ -85,6 +75,16 @@ module DatadogSinatraRouteingPathNamePatch
 end
 
 ::Sinatra::Base.prepend(DatadogSinatraRouteingPathNamePatch)
+
+# DatadogにWorkerのクラス名を送信するためのモンキーパッチをSidekiq::Worker#performに仕込む
+module DatadogSidekiqWorkerPatch
+  def perform(*)
+    trace = ::Datadog::Tracing.active_trace
+    trace.resource = self.class.to_s if trace
+
+    super
+  end
+end
 
 # Sidekiq::Workerをincludeした全workerクラスにモンキーパッチをあてる
 # NOTE: Sidekiq::Workerがincludeされているかどうかを厳密に調べようとするとインスタンスを生成する必要があって遅くなるため、
