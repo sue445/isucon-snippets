@@ -9,7 +9,6 @@ gem "sentry-ruby"
 
 gem "oj"
 gem "parallel"
-gem "puma_worker_killer", require: false
 
 group :development do
   gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false
@@ -18,6 +17,7 @@ end
 
 # 必要に応じて使う
 # gem "connection_pool"
+# gem "puma_worker_killer", require: false
 # gem "redis"
 # gem "sidekiq"
 # gem "sidekiq-cron"
@@ -45,6 +45,7 @@ PUMA_PORT=
 PUMA_THREADS_MIN=5
 PUMA_THREADS_MAX=16
 PUMA_LOGGING=false
+PUMA_WORKER_KILLER=false
 ```
 
 ## Dummy app
