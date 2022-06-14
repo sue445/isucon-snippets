@@ -27,7 +27,7 @@ threads(threads_min, threads_max)
 
 preload_app!
 
-puma_logging = ENV.fetch("PUMA_LOGGING", true) == true
+puma_logging = ENV.fetch("PUMA_LOGGING", "true") == "true"
 log_requests(puma_logging)
 
 # for puma 5+
