@@ -13,7 +13,7 @@ gem "oj"
 gem "parallel"
 
 group :development do
-  gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false
+  gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false, branch: "main"
   gem "rubocop_auto_corrector", require: false
 end
 
