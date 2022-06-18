@@ -66,7 +66,7 @@ WorkingDirectory=/home/isucon/APP_NAME/webapp/ruby
 # .ruby-gemsetor or .rvmrc file in the working directory
 # ExecStart=/home/deploy/.rvm/bin/rvm in /opt/myapp/current do bundle exec sidekiq -e production
 ExecStart=/home/isucon/local/ruby/bin/bundle exec sidekiq -e production -C /home/isucon/APP_NAME/webapp/ruby/config/sidekiq.yml -r /home/isucon/APP_NAME/webapp/ruby/config/sidekiq.rb
-EnvironmentFile=/home/isucon/isutrain/webapp/env
+EnvironmentFile=/home/isucon/APP_NAME/webapp/env
 EnvironmentFile=/home/isucon/secret_env
 User=isucon
 
