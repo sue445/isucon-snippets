@@ -1,30 +1,6 @@
 # Ruby実装のスニペット
 ## 脳死で書くGemfile
-```ruby
-# profiling and monitoring
-gem "ddtrace", ">= 1.0.0"
-gem "sentry-ruby"
-
-# FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト
-# https://rubygems.org/gems/google-protobuf/versions/3.21.1-x86-linux
-# gem "dogstatsd-ruby"
-# gem "google-protobuf", "~> 3.0"
-
-gem "oj"
-gem "parallel"
-
-group :development do
-  gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false, branch: "main"
-  gem "rubocop_auto_corrector", require: false
-end
-
-# 必要に応じて使う
-# gem "connection_pool"
-# gem "puma_worker_killer", require: false
-# gem "redis"
-# gem "sidekiq"
-# gem "sidekiq-cron"
-```
+[isucon.gemfile](isucon.gemfile)
 
 ## 脳死で書くrequire
 ```ruby
