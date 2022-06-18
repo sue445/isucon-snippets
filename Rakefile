@@ -111,7 +111,10 @@ namespace :deploy do
         # exec ip_address, "#{BUNDLE} config set --local path 'vendor/bundle'", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local without development test", cwd: RUBY_APP_DIR
+
+        # FIXME: ruby 3.2.0-devだとddtraceのnative extensionのbuildに失敗するので無効化
         # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
+        # exec ip_address, "DD_PROFILING_NO_EXTENSION=true #{BUNDLE} install", cwd: RUBY_APP_DIR
 
         # exec_service ip_address, service: APP_SERVICE_NAME, enabled: true
       else

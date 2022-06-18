@@ -3,9 +3,12 @@
 ```ruby
 # profiling and monitoring
 gem "ddtrace", ">= 1.0.0"
-gem "dogstatsd-ruby"
-gem "google-protobuf", "~> 3.0"
 gem "sentry-ruby"
+
+# FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト
+# https://rubygems.org/gems/google-protobuf/versions/3.21.1-x86-linux
+# gem "dogstatsd-ruby"
+# gem "google-protobuf", "~> 3.0"
 
 gem "oj"
 gem "parallel"
