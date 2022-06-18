@@ -39,8 +39,13 @@ Datadog.configure do |c|
   c.tracing.instrument :mysql2,  service_name: app_name + "-mysql2",  analytics_enabled: true
   c.tracing.instrument :http,    service_name: app_name + "-http",    analytics_enabled: true, split_by_domain: true
 
-  # c.tracing.instrument :redis, service_name: app_name + "-redis", analytics_enabled: true
-  # c.tracing.instrument :sidekiq, service_name: app_name + '-sidekiq', analytics_enabled: true, client_service_name: app_name + '-sidekiq-client'
+  if defined?(::Redis)
+    c.tracing.instrument :redis, service_name: app_name + "-redis", analytics_enabled: true
+  end
+
+  if defined?(::Sidekiq)
+    c.tracing.instrument :sidekiq, service_name: app_name + '-sidekiq', analytics_enabled: true, client_service_name: app_name + '-sidekiq-client'
+  end
 end
 
 # NOTE: 設定有効後じゃないとpreloadが効かない
