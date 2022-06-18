@@ -25,5 +25,8 @@ require "yaml"
 schedule_file = "#{__dir__}/sidekiq-cron.yml"
 
 if File.exist?(schedule_file) && Sidekiq.server?
-  Sidekiq::Cron::Job.load_from_hash!(YAML.load_file(schedule_file))
+  schedule_config = YAML.load_file(schedule_file)
+  if schedule_config
+    Sidekiq::Cron::Job.load_from_hash!(schedule_config)
+  end
 end
