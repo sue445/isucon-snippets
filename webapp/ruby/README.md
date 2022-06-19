@@ -1,9 +1,15 @@
 # Ruby実装のスニペット
 ## 脳死で書くGemfile
+```ruby
+git_source(:github) { |repo_name| "git@github.com:#{repo_name}" }
+```
+
 [isucon.gemfile](isucon.gemfile)
 
 ## 脳死で書くrequire
 ```ruby
+require "mysql2-nested_hash_bind"
+
 # TODO: Sinatra app内で include SentryMethods する
 require_relative "./config/sentry_methods"
 
