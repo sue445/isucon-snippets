@@ -99,7 +99,7 @@ namespace :deploy do
       when :host01
         # exec ip_address, "sudo cp infra/nginx/nginx.conf /etc/nginx/nginx.conf"
         # exec ip_address, "sudo nginx -t"
-        # exec ip_address, "sudo rm -f /var/log/nginx/*.log"
+        # exec ip_address, "sudo chmod 644 /var/log/nginx/*.log"
         # exec_service ip_address, service: "nginx", enabled: true
       else
         # exec_service ip_address, service: "nginx", enabled: false
