@@ -29,7 +29,7 @@ RUBY_APP_DIR = "/home/isucon/isutrain/webapp/ruby"
 
 # アプリのservice名
 # NOTE: `sudo systemctl list-unit-files --type=service | grep isu` などで調べる
-APP_SERVICE_NAME = "isutrain-ruby.service"
+APP_SERVICE_NAME = "isuxxxxx-ruby.service"
 
 # デプロイを記録するissue
 GITHUB_REPO     = "sue445/isuconXX-qualify"
@@ -89,6 +89,7 @@ namespace :deploy do
       when :host01
         # exec ip_address, "sudo cp infra/mysql/isucon.cnf /etc/mysql/conf.d/isucon.cnf"
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
+        # TODO: mariadbで動いてないか確認する
         # exec_service ip_address, service: "mysql", enabled: true
       else
         # exec_service ip_address, service: "mysql", enabled: false
@@ -112,17 +113,14 @@ namespace :deploy do
         # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local without development test", cwd: RUBY_APP_DIR
 
-        # FIXME: ruby 3.2.0-devだとddtraceのnative extensionのbuildに失敗するので無効化
         # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
+        # FIXME: ruby 3.2.0-devだとddtraceのnative extensionのbuildに失敗するのでこっちを使う
         # exec ip_address, "DD_PROFILING_NO_EXTENSION=true #{BUNDLE} install", cwd: RUBY_APP_DIR
 
         # exec_service ip_address, service: APP_SERVICE_NAME, enabled: true
       else
         # exec_service ip_address, service: APP_SERVICE_NAME, enabled: false
       end
-
-      # exec ip_address, "sudo rm -f /tmp/sql.log"
-      # exec ip_address, "rm -rf tmp/stackprof/*", cwd: RUBY_APP_DIR
 
       # redis
       case name
@@ -140,7 +138,10 @@ namespace :deploy do
         # exec ip_address, "#{BUNDLE} config set --local path 'vendor/bundle'", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
         # exec ip_address, "#{BUNDLE} config set --local without development test", cwd: RUBY_APP_DIR
+
         # exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
+        # FIXME: ruby 3.2.0-devだとddtraceのnative extensionのbuildに失敗するのでこっちを使う
+        # exec ip_address, "DD_PROFILING_NO_EXTENSION=true #{BUNDLE} install", cwd: RUBY_APP_DIR
 
         # exec_service ip_address, service: "isucon-sidekiq", enabled: true
       else
