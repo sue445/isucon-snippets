@@ -19,6 +19,7 @@ require_relative "./config/enable_monitoring"
 class App < Sinatra::Base
   # Add this
   include SentryMethods
+  using Mysql2::NestedHashBind::QueryExtension
 ```
 
 ## env.shに追加するやつ
