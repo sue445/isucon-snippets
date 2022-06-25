@@ -1,7 +1,7 @@
 require "sidekiq"
 
 require_relative "../config/sentry_methods"
-# require_relative "../lib/isucon_helper"
+# require_relative "../isucon_helper"
 
 class DummyWorker
   include Sidekiq::Worker
