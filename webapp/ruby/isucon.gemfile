@@ -1,4 +1,5 @@
 # Appended by sue445/isucon-snippets
+git_source(:github) { |repo_name| "git@github.com:#{repo_name}" }
 
 # profiling and monitoring
 gem "ddtrace", ">= 1.0.0"
