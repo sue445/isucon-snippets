@@ -21,6 +21,7 @@ function copy_to_ruby_dir() {
   set -x
   cp webapp/ruby/.rubocop.yml ${ruby_dir}
   cp -R webapp/ruby/config ${ruby_dir}
+  cp -R webapp/ruby/workers ${ruby_dir}
   set +x
 
   if [ $(grep "Appended by sue445/isucon-snippets" ${ruby_dir}/Gemfile | wc -l) == "0" ]; then
