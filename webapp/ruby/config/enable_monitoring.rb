@@ -68,6 +68,26 @@ end
 
 ::Mysql2::Client.prepend(DatadogMysql2RawQuerySenderPatch)
 
+# {Mysql2::Client#query} や {Mysql2::Client#xquery} のエラー時にSentryにSQLを送信するためのパッチ
+module SentryMysql2Patch
+  def _query(sql, options = {})
+    super(sql, options)
+
+  rescue Mysql2::Error => error
+    Sentry.configure_scope do |scope|
+      scope.set_context(
+        "mysql2",
+        {
+          sql: sql,
+        }
+      )
+      raise error
+    end
+  end
+end
+
+::Mysql2::Client.prepend(SentryMysql2Patch)
+
 # Datadogに `POST /api/condition/:jia_isu_uuid` のようなsinatraで定義してるrouting名で送信するためのパッチ
 module DatadogSinatraRouteingPathNamePatch
   def route_eval
