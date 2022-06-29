@@ -13,9 +13,19 @@ require "mysql2-nested_hash_bind"
 # TODO: Sinatra app内で include SentryMethods する
 require_relative "./config/sentry_methods"
 
+# 必要に応じて使う
+# require_relative "./config/hash_group_by_prefix"
+# require_relative "./config/mysql_methods"
+# require_relative "./config/oj_encoder"
+# require_relative "./config/oj_to_json_patch"
+# require_relative "./config/redis_methods"
+# require_relative "./config/sidekiq_methods"
+
 # TODO: 終了直前にコメントアウトする
 require_relative "./config/enable_monitoring"
+```
 
+```ruby
 class App < Sinatra::Base
   # Add this
   include SentryMethods
