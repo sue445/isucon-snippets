@@ -2,8 +2,10 @@
 require "sentry-ruby"
 require "sinatra"
 require "ddtrace"
-require "datadog/statsd"
 require "mysql2"
+
+# FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト
+# require "datadog/statsd"
 
 Sentry.init do |config|
   config.enabled_environments = %w[production development]
