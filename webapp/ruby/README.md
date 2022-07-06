@@ -20,6 +20,7 @@ require_relative "./config/sentry_methods"
 # require_relative "./config/oj_to_json_patch"
 # require_relative "./config/redis_methods"
 # require_relative "./config/sidekiq_methods"
+# require_relative "./config/thread_helper"
 
 # TODO: 終了直前にコメントアウトする
 require_relative "./config/enable_monitoring"
