@@ -4,6 +4,7 @@ git_source(:github) { |repo_name| "git@github.com:#{repo_name}" }
 # profiling and monitoring
 gem "ddtrace", ">= 1.0.0"
 gem "sentry-ruby"
+gem "datadog_thread_tracer", github: "sue445/datadog_thread_tracer", require: false, branch: "main"
 
 # FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト
 # https://rubygems.org/gems/google-protobuf/versions/3.21.1-x86-linux
@@ -13,7 +14,6 @@ gem "sentry-ruby"
 gem "oj"
 gem "parallel"
 gem "mysql2-nested_hash_bind"
-gem "datadog_thread_tracer", github: "sue445/datadog_thread_tracer", require: false, branch: "main"
 
 group :development do
   gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false, branch: "main"
