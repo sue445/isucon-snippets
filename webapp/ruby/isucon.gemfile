@@ -13,6 +13,7 @@ gem "sentry-ruby"
 gem "oj"
 gem "parallel"
 gem "mysql2-nested_hash_bind"
+gem "datadog_thread_tracer", github: "sue445/datadog_thread_tracer", require: false, branch: "main"
 
 group :development do
   gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false, branch: "main"
