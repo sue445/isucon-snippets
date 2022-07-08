@@ -12,7 +12,7 @@ gem "sentry-ruby"
 
 gem "oj"
 gem "parallel"
-gem "mysql2-nested_hash_bind", github: "sue445/mysql2-nested_hash_bind", branch: "main"
+gem "mysql2-nested_hash_bind"
 
 group :development do
   gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false, branch: "main"
