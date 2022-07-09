@@ -14,9 +14,9 @@ require "json"
 
 # デプロイ先のサーバ
 HOSTS = {
-  host01: "",
-  # host02: "",
-  # host03: "",
+  # host01: "isucon-01",
+  # host02: "isucon-02",
+  # host03: "isucon-03",
 }
 
 INITIALIZE_ENDPOINT = "http://#{HOSTS[:host01]}/initialize"
