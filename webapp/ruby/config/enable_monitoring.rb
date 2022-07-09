@@ -2,6 +2,7 @@
 require "sentry-ruby"
 require "sinatra"
 require "ddtrace"
+require "datadog_thread_tracer"
 require "mysql2"
 
 # FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト

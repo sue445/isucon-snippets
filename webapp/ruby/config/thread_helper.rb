@@ -2,7 +2,6 @@
 
 if defined?(Datadog) && defined?(DatadogThreadTracer)
   # ddtraceをrequireしてる場合にはdatadog_thread_tracerをそのまま使う
-  require "datadog_thread_tracer"
   ThreadHelper = DatadogThreadTracer
   return
 end
