@@ -1,6 +1,13 @@
-# サブスレッドのトレースをDatadogに送るためのヘルパー
-require "datadog_thread_tracer"
+# ddtraceをrequireしてない場合にもDatadogThreadHelper.traceと同じインターフェースを提供するためのヘルパー
 
+if defined?(Datadog) && defined?(DatadogThreadTracer)
+  # ddtraceをrequireしてる場合にはdatadog_thread_tracerをそのまま使う
+  require "datadog_thread_tracer"
+  ThreadHelper = DatadogThreadTracer
+  return
+end
+
+# ddtraceをrequireしていない場合にはdatadog_thread_tracerと同じインターフェースを提供したヘルパーを定義する
 class ThreadHelper
   def initialize
     @threads = []
@@ -16,17 +23,11 @@ class ThreadHelper
     @threads.each(&:join)
   end
 
-  def self.within_threads
-    if defined? ::Datadog
-      DatadogThreadTracer.trace do |thread_tracer|
-        yield thread_tracer
-      end
-    else
-      helper = ThreadHelper.new
+  def self.trace
+    helper = ThreadHelper.new
 
-      yield helper
+    yield helper
 
-      helper.join_threads
-    end
+    helper.join_threads
   end
 end

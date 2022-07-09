@@ -10,6 +10,7 @@ ENV["RACK_ENV"] = "development"
 require_relative "./config/enable_monitoring"
 
 require_relative "./config/sentry_methods"
+require_relative "./config/thread_helper"
 
 class App < Sinatra::Base
   include SentryMethods
