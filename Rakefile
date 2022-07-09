@@ -84,6 +84,9 @@ namespace :deploy do
       exec_service ip_address, service: "datadog-agent", enabled: true
       exec_service ip_address, service: "td-agent", enabled: true
 
+      # FIXME: datadog-agentをdisableにしてもなぜかreboot後に起動することがあるので確実に止めるためにアンインストールする
+      # exec ip_address, "sudo apt-get remove -y datadog-agent"
+
       # mysql
       case name
       when :host01
