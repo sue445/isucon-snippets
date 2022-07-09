@@ -31,8 +31,8 @@ require_relative "./config/enable_monitoring"
 `class App < Sinatra::Base` 内に下記を追加
 
 ```ruby
-  include SentryMethods
-  using Mysql2::NestedHashBind::QueryExtension
+include SentryMethods
+using Mysql2::NestedHashBind::QueryExtension
 ```
 
 ## env.shに追加するやつ
