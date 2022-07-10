@@ -12,9 +12,10 @@ class ThreadHelper
     @threads = []
   end
 
-  def trace(_trace_name = nil)
-    @threads << Thread.new do
-      yield
+  def trace(trace_name: nil, thread_args: [])
+    thread_args = Array(thread_args)
+    @threads << Thread.new(thread_args) do |args|
+      yield(*args)
     end
   end
 
