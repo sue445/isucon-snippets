@@ -1,4 +1,4 @@
-# Copy to /lib/systemd/system/isucon-sidekiq.service
+# TODO: Copy to /lib/systemd/system/isucon-sidekiq.service
 
 #
 # This file tells systemd how to run Sidekiq as a 24/7 long-running daemon.
@@ -38,7 +38,8 @@ After=syslog.target network.target
 #
 [Service]
 # emergency (0), alert (1), critical (2), error (3), warning (4), notice (5), info (6), and debug (6)
-LogLevelMax=3
+# TODO: ログを抑制するには下記のコメントを解除する
+# LogLevelMax=3
 
 #
 #      !!!!  !!!!  !!!!
@@ -65,7 +66,9 @@ WorkingDirectory=/home/isucon/APP_NAME/webapp/ruby
 # If you use rvm in production with gemset and ruby version/gemset is specified in .ruby-version,
 # .ruby-gemsetor or .rvmrc file in the working directory
 # ExecStart=/home/deploy/.rvm/bin/rvm in /opt/myapp/current do bundle exec sidekiq -e production
-ExecStart=/home/isucon/local/ruby/bin/bundle exec sidekiq -e production -C /home/isucon/APP_NAME/webapp/ruby/config/sidekiq.yml -r /home/isucon/APP_NAME/webapp/ruby/config/sidekiq.rb
+
+# TODO: Fix this
+ExecStart=/home/isucon/local/ruby/versions/RUBY_VERSION/bin/bundle exec sidekiq -e production -C /home/isucon/APP_NAME/webapp/ruby/config/sidekiq.yml -r /home/isucon/APP_NAME/webapp/ruby/config/sidekiq.rb
 EnvironmentFile=/home/isucon/APP_NAME/webapp/env
 EnvironmentFile=/home/isucon/secret_env
 User=isucon
