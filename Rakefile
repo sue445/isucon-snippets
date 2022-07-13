@@ -25,7 +25,7 @@ INITIALIZE_ENDPOINT = "http://#{HOSTS[:host01]}/initialize"
 CURRENT_DIR = "/home/isucon/isutrain"
 
 # rubyアプリのディレクトリ
-RUBY_APP_DIR = "/home/isucon/isutrain/webapp/ruby"
+RUBY_APP_DIR = "/home/isucon/APP_NAME/webapp/ruby"
 
 # アプリのservice名
 # NOTE: `sudo systemctl list-unit-files --type=service | grep isu` などで調べる
