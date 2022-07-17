@@ -8,12 +8,11 @@ git_source(:github) { |repo_name| "git@github.com:#{repo_name}" }
 
 ## 脳死で書くrequire
 ```ruby
-require "mysql2-nested_hash_bind"
-
 # TODO: Sinatra app内で include SentryMethods する
 require_relative "./config/sentry_methods"
 
 # 必要に応じて使う
+# require "mysql2-nested_hash_bind"
 # require_relative "./config/hash_group_by_prefix"
 # require_relative "./config/mysql_methods"
 # require_relative "./config/oj_encoder"
