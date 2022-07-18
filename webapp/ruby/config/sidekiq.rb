@@ -5,7 +5,7 @@ require "sidekiq"
 # TODO: workerクラスをrequireした後にrequireすること
 require_relative "./enable_monitoring"
 
-sidekiq_redis_url = "redis://#{ENV["REDIS_HOST"]}:6379/0"
+sidekiq_redis_url = "redis://#{ENV.fetch("REDIS_HOST")}:6379/0"
 
 Sidekiq.configure_server do |config|
   config.redis = { url: sidekiq_redis_url }
