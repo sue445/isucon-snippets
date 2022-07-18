@@ -18,6 +18,7 @@ require_relative "./config/sentry_methods"
 # require_relative "./config/oj_encoder"
 # require_relative "./config/oj_to_json_patch"
 # require_relative "./config/redis_methods"
+# require_relative "./config/sidekiq"
 # require_relative "./config/sidekiq_methods"
 
 # TODO: 終了直前にコメントアウトする
