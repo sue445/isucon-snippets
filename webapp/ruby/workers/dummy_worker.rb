@@ -1,4 +1,5 @@
 require "sidekiq"
+require "mysql2-cs-bind"
 
 require_relative "../config/sentry_methods"
 # require_relative "../isucon_helper"
