@@ -31,7 +31,7 @@ require_relative "./config/enable_monitoring"
 
 ```ruby
 include SentryMethods
-using Mysql2::NestedHashBind::QueryExtension
+# using Mysql2::NestedHashBind::QueryExtension
 ```
 
 ## env.shに追加するやつ
