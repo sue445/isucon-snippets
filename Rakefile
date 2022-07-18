@@ -87,7 +87,7 @@ namespace :deploy do
       # FIXME: datadog-agentをdisableにしてもなぜかreboot後に起動することがあるので確実に止めるためにアンインストールする
       # exec ip_address, "sudo apt-get remove -y datadog-agent"
 
-      # mysql
+      # mysql, mariadb
       case name
       when :host01
         # exec ip_address, "sudo cp infra/mysql/isucon.cnf /etc/mysql/conf.d/isucon.cnf"
@@ -95,8 +95,10 @@ namespace :deploy do
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
         # TODO: mariadbで動いてないか確認する
         # exec_service ip_address, service: "mysql", enabled: true
+        # exec_service ip_address, service: "mariadb", enabled: true
       else
         # exec_service ip_address, service: "mysql", enabled: false
+        # exec_service ip_address, service: "mariadb", enabled: false
       end
 
       # nginx
