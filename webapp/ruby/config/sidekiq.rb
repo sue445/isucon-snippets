@@ -1,18 +1,19 @@
 # sidekiqの設定
 require "sidekiq"
+require_relative "../workers/sidekiq_stats_worker"
 # require_relative "../workers/dummy_worker"
 
 # TODO: workerクラスをrequireした後にrequireすること
 require_relative "./enable_monitoring"
 
-sidekiq_redis_url = "redis://#{ENV.fetch("REDIS_HOST")}:6379/0"
+sidekiq_redis_url = "redis://#{ENV.fetch("REDIS_HOST")}:#{ENV.fetch("REDIS_PORT", "6379")}/0"
 
 Sidekiq.configure_server do |config|
   config.redis = { url: sidekiq_redis_url }
 
   # sidekiqがjobをチェックする間隔(デフォルトは30秒)
   # NOTE: sidekiq-cronを秒単位で実行したい場合はここを小さくする
-  # Sidekiq.options[:poll_interval] = 2
+  Sidekiq.options[:poll_interval] = 10
 end
 
 Sidekiq.configure_client do |config|
