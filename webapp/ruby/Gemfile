@@ -10,6 +10,7 @@ gem "puma_worker_killer", require: false
 gem "sinatra"
 
 # profiling and monitoring
+gem "datadog_thread_tracer"
 gem "ddtrace", ">= 1.0.0"
 gem "dogstatsd-ruby"
 gem "google-protobuf", "~> 3.0"
