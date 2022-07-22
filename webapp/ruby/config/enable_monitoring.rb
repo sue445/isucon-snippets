@@ -8,8 +8,11 @@ require "mysql2"
 # FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト
 # require "datadog/statsd"
 
+GIT_REVISION = `git rev-parse --short HEAD`.strip # rubocop:disable Isucon/Shell/Backtick 最終的にはファイル自体requireしないので無視する
+
 Sentry.init do |config|
   config.enabled_environments = %w[production development]
+  config.release = GIT_REVISION
 end
 
 # NOTE: 書くのをよく忘れるのでファイルをrequireした時点で自動でSentry::Rack::CaptureExceptionsが適用されるようにする
@@ -23,7 +26,7 @@ Datadog.configure do |c|
   app_name = "isucon"
 
   # Global settings
-  c.version = `git rev-parse --short HEAD`.strip # rubocop:disable Isucon/Shell/Backtick 最終的にはファイル自体requireしないので無視する
+  c.version = GIT_REVISION
   c.runtime_metrics.enabled = true
   c.service = app_name
   c.env = ENV["RACK_ENV"]
