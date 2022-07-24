@@ -16,7 +16,7 @@ gem "parallel"
 gem "mysql2-nested_hash_bind"
 
 group :development do
-  gem "rubocop-isucon", github: "sue445/rubocop-isucon", require: false, branch: "main"
+  gem "rubocop-isucon", require: false
   gem "rubocop_auto_corrector", require: false
 end
 
