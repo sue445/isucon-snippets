@@ -8,6 +8,9 @@ require "mysql2"
 # FIXME: ruby 3.2.0-devでインストールできないのでコメントアウト
 # require "datadog/statsd"
 
+# TODO: sqlite3がある時のみ有効化する
+# require_relative "./ddtrace_sqlite3"
+
 GIT_REVISION = `git rev-parse --short HEAD`.strip # rubocop:disable Isucon/Shell/Backtick 最終的にはファイル自体requireしないので無視する
 
 Sentry.init do |config|
