@@ -45,6 +45,7 @@ GEM
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.3)
+    newrelic_rpm (8.9.0)
     nio4r (2.5.8)
     puma (5.4.0)
       nio4r (~> 2.0)
@@ -98,6 +99,7 @@ DEPENDENCIES
   foreman
   google-protobuf (~> 3.0)
   mysql2
+  newrelic_rpm
   puma
   puma_worker_killer
   rack-test
