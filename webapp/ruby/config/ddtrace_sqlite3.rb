@@ -1,6 +1,3 @@
-require "sqlite3"
-require "ddtrace"
-
 module DatadogSqlite3TracePatch
   def execute(sql, bind_vars = [], *args, &block)
     Datadog::Tracing.trace("sqlite3.execute", service: "isucon-sqlite3", resource: sql) do
