@@ -14,6 +14,7 @@ gem "datadog_thread_tracer"
 gem "ddtrace", ">= 1.0.0"
 gem "dogstatsd-ruby"
 gem "google-protobuf", "~> 3.0"
+gem "newrelic_rpm"
 gem "sentry-ruby"
 
 group :development do
