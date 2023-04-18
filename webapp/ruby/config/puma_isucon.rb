@@ -34,8 +34,6 @@ log_requests(puma_logging)
 # Recommended 0.001~0.010(default 0.005)
 wait_for_less_busy_worker 0.005
 
-nakayoshi_fork true
-
 if ENV.fetch("PUMA_WORKER_KILLER", "false") == "true"
   before_fork do
     require "puma_worker_killer"
