@@ -20,6 +20,7 @@ function copy_to_ruby_dir() {
 
   set -x
   cp webapp/ruby/.rubocop.yml ${ruby_dir}
+  cp webapp/ruby/.ruby-version ${ruby_dir}
   cp -R webapp/ruby/config ${ruby_dir}
   cp -R webapp/ruby/workers ${ruby_dir}
   set +x
