@@ -39,7 +39,7 @@ include SentryMethods
 `PUMA_PORT` は参照実装で使ってるport番号に変える
 
 ```
-RUBYOPT="--yjit"
+RUBY_YJIT_ENABLE=1
 PUMA_PORT=
 PUMA_THREADS_MIN=5
 PUMA_THREADS_MAX=16
