@@ -93,6 +93,10 @@ namespace :deploy do
         # exec ip_address, "sudo cp infra/mysql/isucon.cnf /etc/mysql/conf.d/isucon.cnf"
         # exec ip_address, "sudo cp infra/mysql/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf "
         # exec ip_address, "sudo mysqld --verbose --help > /dev/null"
+
+        # NOTE: disk full対策でデプロイ時にログを消す
+        # exec ip_address, "sudo rm -f /var/log/mysql/slow.log"
+
         # TODO: mariadbで動いてないか確認する
         # exec_service ip_address, service: "mysql", enabled: true
         # exec_service ip_address, service: "mariadb", enabled: true
